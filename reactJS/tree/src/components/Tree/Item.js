@@ -12,6 +12,7 @@ class Item extends Component {
     title: PropTypes.string,
     allOpen: PropTypes.bool,
     expanded: PropTypes.bool,
+    checked: PropTypes.bool,
     // hasChild: PropTypes.bool,
   };
 
@@ -19,6 +20,7 @@ class Item extends Component {
     title: null,
     allOpen: false,
     expanded: false,
+    checked: false,
     // hasChild: false,
   };
 
@@ -26,7 +28,14 @@ class Item extends Component {
     super(props);
     this.state = {
       treeOpen: props.expanded,
+      opened: false,
+      active: null,
     };
+    this.activeToggle = this.activeToggle.bind(this);
+  }
+
+  activeToggle() {
+    this.props.onClick(this.props.id);
   }
 
   treeOpenClick = e => {
@@ -46,10 +55,10 @@ class Item extends Component {
     } else {
       hasChild = false;
     }
-    console.log(hasChild);
+    // console.log(hasChild);
     return classNames({
       'tree-node': true,
-      'rct-node-leaf': !hasChild,
+      'tree-node-leaf': !hasChild,
       'tree-node-parent': hasChild,
       'tree-node-expanded': hasChild && expanded && treeOpen,
       'tree-node-collapsed': hasChild && !expanded && !treeOpen,
@@ -58,7 +67,7 @@ class Item extends Component {
 
   render() {
     const { treeOpen } = this.state;
-    const { children, title } = this.props;
+    const { children, title, checked } = this.props;
 
     return (
       <React.Fragment>
@@ -71,7 +80,7 @@ class Item extends Component {
                 onClick={this.treeOpenClick}
               />
             </div>
-            <div className="tree-bare-label">
+            <div className={`tree-bare-label${checked? ' tree-node-selected': ''}`} onClick={this.activeToggle}>
               <Icon name="folder" />
               <span>{title}</span>
             </div>

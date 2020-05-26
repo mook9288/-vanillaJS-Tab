@@ -8,44 +8,62 @@ class App extends Component {
   
   state = {
     bookMark: [
-      { name: '폴더명 1', id: uuidv4(), expanded: false },
-      { name: '폴더명 2', id: uuidv4(), expanded: false, children: [
-        { name: '폴더명 2-1', id: uuidv4(), expanded: false },
-        { name: '폴더명 2-2', id: uuidv4(), expanded: false, children: [
-          { name: '폴더명 2-2-1', id: uuidv4(), expanded: false },
-          { name: '폴더명 2-2-2', id: uuidv4(), expanded: false },
-          { name: '폴더명 2-2-3', id: uuidv4(), expanded: false },
+      { name: '폴더명 1', id: uuidv4() },
+      { name: '폴더명 2', id: uuidv4(), children: [
+        { name: '폴더명 2-1', id: uuidv4() },
+        { name: '폴더명 2-2', id: uuidv4(), children: [
+          { name: '폴더명 2-2-1', id: uuidv4() },
+          { name: '폴더명 2-2-2', id: uuidv4() },
+          { name: '폴더명 2-2-3', id: uuidv4() },
         ]},
       ]},
-      { name: '폴더명 3', id: uuidv4(), expanded: false, children: [
-        { name: '폴더명 3-1', id: uuidv4(), expanded: false },
-        { name: '폴더명 3-2', id: uuidv4(), expanded: false, children: [
-          { name: '폴더명 3-2-1', id: uuidv4(), expanded: false },
-          { name: '폴더명 3-2-2', id: uuidv4(), expanded: false },
-          { name: '폴더명 3-2-3', id: uuidv4(), expanded: false },
+      { name: '폴더명 3', id: uuidv4(), children: [
+        { name: '폴더명 3-1', id: uuidv4() },
+        { name: '폴더명 3-2', id: uuidv4(), children: [
+          { name: '폴더명 3-2-1', id: uuidv4() },
+          { name: '폴더명 3-2-2', id: uuidv4() },
+          { name: '폴더명 3-2-3', id: uuidv4() },
         ]},
-        { name: '폴더명 3-3', id: uuidv4(), expanded: false },
+        { name: '폴더명 3-3', id: uuidv4() },
       ]},
-      { name: '폴더명 4', id: uuidv4(), expanded: false, children: [
-        { name: '폴더명 4-1', id: uuidv4(), expanded: false },
-        { name: '폴더명 4-2', id: uuidv4(), expanded: false },
-        { name: '폴더명 4-3', id: uuidv4(), expanded: false },
-        { name: '폴더명 4-4', id: uuidv4(), expanded: false },
-        { name: '폴더명 4-5', id: uuidv4(), expanded: false },
+      { name: '폴더명 4', id: uuidv4(), children: [
+        { name: '폴더명 4-1', id: uuidv4() },
+        { name: '폴더명 4-2', id: uuidv4() },
+        { name: '폴더명 4-3', id: uuidv4() },
+        { name: '폴더명 4-4', id: uuidv4() },
+        { name: '폴더명 4-5', id: uuidv4() },
       ]},
-      { name: '폴더명 5', id: uuidv4(), expanded: false, children: []},
+      { name: '폴더명 5', id: uuidv4(), children: []},
     ],
+    showAll: false,
+    active: '',
   };
+
+  activeItem = (id) => {
+    console.log("this.props.id:", this.props.id," >>>> active",this.state.active);
+  }
 
   renderBookmark = (data) => data.map((d, i) => {
     // console.log(d, i);
+    const { showAll, active } = this.state;
+    let expanded = false;
+    let checked = false;
+
+    console.log("d.id:", d.id, " >>>> checked:",checked," >>>> active",active);
+
+    if (showAll) {
+      expanded = showAll;
+    }
+
     if (d.children && d.children.length > 0) {
       return (
         <Tree.Item
           title={d.name}
           id={d.id}
-          expanded={d.expanded}
+          expanded={expanded}
           key={i}
+          onClick={this.activeItem}
+          // checked={checked}
         >
           {
             this.renderBookmark(d.children)
@@ -57,8 +75,10 @@ class App extends Component {
         <Tree.Item
           title={d.name}
           id={d.id}
-          expanded={d.expanded}
+          expanded={expanded}
           key={i}
+          onClick={this.activeItem}
+          // checked={checked}
         />
       );
     }
