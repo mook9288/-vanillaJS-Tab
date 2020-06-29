@@ -1,11 +1,13 @@
 (() => {  
 
-  const thisImgJPGSrcArray = [];
-  
+  const thisImgArray = [];
+  // const thisImgSrcArray = [];
   let imgIdx = 0;
-  let imgArrIdx = 0;
+  // let imgArrIdx = 0;
   const canvas = document.querySelector('.canvas-img');
   const ctx = canvas.getContext('2d');
+  const currentImg = [];
+
   const imageWidth = 1440;
   const imageHeight = 810;
   const kvHeightPer = imageHeight / imageWidth;
@@ -16,44 +18,27 @@
   document.querySelector('.canvas-img').setAttribute('width', canvasWidth);
   document.querySelector('.canvas-img').setAttribute('height', canvasHeight);
 
-  const load = function () {
-    
-    const forLoad = function () {
-      const currentImgJPG = new Image();
-      const frameNum = 65;
-      const frameNumArrSize = frameNum - 1;
-      const imageFileName = './images/test-numbering0.jpg';
-      
-      // const fileNumber = imageFileName.replace(/[^-]/g, "");
-      const fileSrc = imageFileName.split("numbering0")[0];
-      const fileType = imageFileName.split("numbering0")[1];
-      
-      // for (let frameIdx = 1; frameIdx <= frameNum; frameIdx++) {
-      //   console.log(frameNum[frameIdx]);
-      //   currentImgJPG.src = fileSrc + frameNum[frameIdx] + fileType;
-      //   thisImgJPGSrcArray.push(currentImgJPG.src[1]);
-      // }
-
-      [...Array(frameNum)].forEach(() => {
-        imgIdx++;
-        currentImgJPG.src = fileSrc + imgIdx + fileType;
-        thisImgJPGSrcArray.push(currentImgJPG);
-        // console.log(currentImgJPG.src);
-      });
-      console.log(thisImgJPGSrcArray[0]);
-
-      [...Array(frameNumArrSize)].forEach(() => {
-        imgArrIdx++;
-        thisImgJPGSrcArray[imgArrIdx].onload = function () {
-          ctx.drawImage(thisImgJPGSrcArray[0], 0, 0, canvasWidth, canvasHeight);
-        }
-      });
-
-      // thisImgJPGSrcArray[4].onload = function () {
-      //   ctx.drawImage(thisImgJPGSrcArray[4], 0, 0, canvasWidth, canvasHeight);
-      // };
-    }
-		forLoad();
+  for (let i = 1; i <= 65; i++){
+    currentImg[i] = new Image();
+    currentImg[i].src = './images/test-'+i+'.jpg';
+    thisImgArray.push(currentImg[i]);
   }
-  load();
+
+  const firstPlay = function () {
+    const firstPlaySet = setInterval(() => {
+      const thisJPImg = thisImgArray[imgIdx];
+      ctx.drawImage(thisJPImg, 0, 0, canvasWidth, canvasHeight );
+      imgIdx++;
+
+      if(imgIdx >= 65) {
+        // clearInterval(firstPlaySet);
+        imgIdx = 0;
+      }
+    }, 80);
+
+    // clearInterval(firstPlaySet);
+  }
+
+  firstPlay();
 })();
+ 
