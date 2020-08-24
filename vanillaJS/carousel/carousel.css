@@ -50,6 +50,7 @@
   overflow: hidden;
   cursor:pointer;
   border:0px;
+  outline: none;
 }
 
 .carousel-arr .arr-prev {
@@ -78,6 +79,11 @@
 
 .carousel-arr .arr-next::before {
   transform: translate(-70%, -50%) rotate(135deg);
+}
+
+.carousel-arr button:hover,
+.carousel-arr button:focus {
+  background-color: rgba(225,225,225,1);
 }
 
 .carousel-dots {
