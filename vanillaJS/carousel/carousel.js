@@ -43,9 +43,8 @@ carouselPrev.addEventListener("click", function () {
 // 변수 idxDot의 값이 외부 변수가 아님. 5로 정의되어 전역변수가 됨..(for이 다 돌고 나서 5로 재정의.)
 // 이럴땐, 익명함수를 이용하거나 외부함수를 사용하면 해결 됨.
 // 내부함수의 변수가 외부함수의 지역변수를 참조하게 해주면 된다.
-const arrDot = [];
-let idxDot = 0;
-for (idxDot; idxDot < carouselDot.length; idxDot++) {
+var arrDot = [];
+for (var idxDot = 0; idxDot < carouselDot.length; idxDot++) {
   arrDot[idxDot] = function(idx) {
     carouselDot[idx].addEventListener("click", function () {
       prevNext(nowImg, idx);
