@@ -22,13 +22,13 @@
     var currentImg; // 이전 이미지 index를 저장할 변수
 
     carousel.innerHTML = `<div class="carousel-list"></div><div class="carousel-arr"></div><div class="carousel-dots"></div>`;
-    document.querySelector(".carousel-list").innerHTML = `<img src="` + imgSrc + imgName[0] + `" alt="">`
+    document.querySelector(".carousel-list").innerHTML = `<img src="` + imgSrc + imgName[nowImg] + `" alt="">`
     document.querySelector(".carousel-arr").innerHTML = `<button class="arr-prev">이전</button><button class="arr-next">다음</button>`
 
     var carouselDot = document.querySelector(".carousel-dots");
     for (var idxDot = 1; idxDot <= totalImg; idxDot++) {
       carouselDot.innerHTML += `<button>` + idxDot + `</button>`;
-      carouselDot.firstChild.setAttribute("class","active");
+      carouselDot.childNodes[nowImg].setAttribute("class","active");
     }
 
     var arrDot = [];

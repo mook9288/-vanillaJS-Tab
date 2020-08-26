@@ -12,7 +12,7 @@ var carouselImg = document.createElement("img");
 var carouselListCreate = carousel.appendChild(carouselList);
 carouselListCreate.appendChild(carouselImg);
 carouselList.setAttribute("class", "carousel-list");
-carouselImg.setAttribute("src", imgSrc + imgName[0]);
+carouselImg.setAttribute("src", imgSrc + imgName[nowImg]);
 
 // 이전 다음 버튼 생성
 var carouselArr = document.createElement("div");
@@ -34,7 +34,7 @@ for (var idxDot = 1; idxDot <= totalImg; idxDot++) {
   var dotNum = document.createTextNode(idxDot);
   dotBtn.appendChild(dotNum);
   dotCreate.appendChild(dotBtn);
-  document.querySelector(".carousel-dots").firstChild.setAttribute("class","active");
+  dot.childNodes[nowImg].setAttribute("class","active");
 }
 
 // 이미지 변경, 변경된 이미지로 dot 활성화
