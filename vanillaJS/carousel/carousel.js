@@ -1,12 +1,33 @@
-var carouselList = document.querySelectorAll(".test .carousel-list li");
-var carouselDot = document.querySelectorAll(".test .carousel-dots button");
-var carouselNext = document.querySelector(".test .arr-next");
-var carouselPrev = document.querySelector(".test .arr-prev");
+var carouselImg = document.querySelector(".carousel-list img");
 var nowImg = 0; // 현재 이미지 index
-var totalImg = carouselList.length; // 전체 이미지 수
+var totalImg = 5; // 전체 이미지 수
 var currentImg; // 이전 이미지 index를 저장할 변수
 
+// 이전 다음 버튼 생성
+var carouselArr = document.createElement("div");
+var carouselNextBtn = document.createElement("button");
+var carouselPrevBtn = document.createElement("button");
+var carouselArrCreate = document.querySelector(".carousel").appendChild(carouselArr);
+carouselArrCreate.appendChild(carouselNextBtn);
+carouselArrCreate.appendChild(carouselPrevBtn);
+carouselArr.setAttribute("class", "carousel-arr");
+carouselNextBtn.setAttribute("class", "arr-next");
+carouselPrevBtn.setAttribute("class", "arr-prev");
+
+// Dot 생성
+var dot = document.createElement("div");
+var dotCreate = document.querySelector(".carousel").appendChild(dot);
+dot.setAttribute("class", "carousel-dots");
+for (var idxDot = 1; idxDot <= totalImg; idxDot++) {
+  var dotBtn = document.createElement("button");
+  var dotNum = document.createTextNode(idxDot);
+  dotBtn.appendChild(dotNum);
+  dotCreate.appendChild(dotBtn);
+  document.querySelector(".carousel-dots").firstChild.setAttribute("class","active");
+}
+
 // 다음 버튼 클릭시 다음 이미지 변경
+var carouselNext = document.querySelector(".carousel-arr .arr-next");
 carouselNext.addEventListener("click", function () {
   // 지금 현재 index를 저장
   currentImg = nowImg;
@@ -22,6 +43,7 @@ carouselNext.addEventListener("click", function () {
 });
 
 // 이전 버튼 클릭시 이전 이미지 변경
+var carouselPrev = document.querySelector(".carousel-arr .arr-prev");
 carouselPrev.addEventListener("click", function () {
   // 지금 현재 index를 저장
   currentImg = nowImg;
@@ -44,29 +66,34 @@ carouselPrev.addEventListener("click", function () {
 // 이럴땐, 익명함수를 이용하거나 외부함수를 사용하면 해결 됨.
 // 내부함수의 변수가 외부함수의 지역변수를 참조하게 해주면 된다.
 var arrDot = [];
-for (var idxDot = 0; idxDot < carouselDot.length; idxDot++) {
-  arrDot[idxDot] = function(idx) {
+var carouselDot = document.querySelectorAll(".carousel-dots button");
+for (var idxDotBtn = 0; idxDotBtn < totalImg; idxDotBtn++) {
+  arrDot[idxDotBtn] = function (idx) {
     carouselDot[idx].addEventListener("click", function () {
       prevNext(nowImg, idx);
       nowImg = idx;
     });
-  }(idxDot);
+  }(idxDotBtn);
 }
-// 또는 forEach 사용.
-// call() 메서드의 첫번째 인자로 전달되는 객체를 this로 지정할 수 있다.
-// [].forEach.call(carouselDot, function (el, idxDot) {
-//   el.addEventListener("click", function () {
-//     prevNext(nowImg, idxDot);
-//     nowImg = idxDot;
-//   });
-// });
+
+/* 또는 forEach 사용.
+call() 메서드의 첫번째 인자로 전달되는 객체를 this로 지정할 수 있다.
+[].forEach.call(carouselDot, function (el, idxDot) {
+  el.addEventListener("click", function () {
+    prevNext(nowImg, idxDot);
+    nowImg = idxDot;
+  });
+}); */
 
 // 변경된 이미지 활성화
 // current: 클릭 전 활성화된 이미지
 // change: 클릭 후 활성화될 이미지
 function prevNext(current, change) {
-  carouselList[current].classList.remove("active");
+  var currentNum = current + 1;
+  var changeNum = change + 1;
+  var imgSrc = carouselImg.getAttribute("src").split(currentNum +".jpg")[0];
+  carouselImg.setAttribute("src", imgSrc + changeNum + '.jpg');
+  carouselImg.setAttribute("alt", changeNum);
   carouselDot[current].classList.remove("active");
-  carouselList[change].classList.add("active");
   carouselDot[change].classList.add("active");
 }
