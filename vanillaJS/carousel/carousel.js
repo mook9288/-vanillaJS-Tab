@@ -1,13 +1,24 @@
-var carouselImg = document.querySelector(".carousel-list img");
+
+var carousel = document.querySelector(".carousel");
+var imgSrc = "images/"; // 경로
+var imgName = ['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg']; // 이미지 배열
 var nowImg = 0; // 현재 이미지 index
-var totalImg = 5; // 전체 이미지 수
+var totalImg = imgName.length; // 전체 이미지 수
 var currentImg; // 이전 이미지 index를 저장할 변수
+
+// 이미지 생성
+var carouselList = document.createElement("div");
+var carouselImg = document.createElement("img");
+var carouselListCreate = carousel.appendChild(carouselList);
+carouselListCreate.appendChild(carouselImg);
+carouselList.setAttribute("class", "carousel-list");
+carouselImg.setAttribute("src", imgSrc + imgName[0]);
 
 // 이전 다음 버튼 생성
 var carouselArr = document.createElement("div");
 var carouselNextBtn = document.createElement("button");
 var carouselPrevBtn = document.createElement("button");
-var carouselArrCreate = document.querySelector(".carousel").appendChild(carouselArr);
+var carouselArrCreate = carousel.appendChild(carouselArr);
 carouselArrCreate.appendChild(carouselNextBtn);
 carouselArrCreate.appendChild(carouselPrevBtn);
 carouselArr.setAttribute("class", "carousel-arr");
@@ -16,7 +27,7 @@ carouselPrevBtn.setAttribute("class", "arr-prev");
 
 // Dot 생성
 var dot = document.createElement("div");
-var dotCreate = document.querySelector(".carousel").appendChild(dot);
+var dotCreate = carousel.appendChild(dot);
 dot.setAttribute("class", "carousel-dots");
 for (var idxDot = 1; idxDot <= totalImg; idxDot++) {
   var dotBtn = document.createElement("button");
@@ -24,6 +35,15 @@ for (var idxDot = 1; idxDot <= totalImg; idxDot++) {
   dotBtn.appendChild(dotNum);
   dotCreate.appendChild(dotBtn);
   document.querySelector(".carousel-dots").firstChild.setAttribute("class","active");
+}
+
+// 이미지 변경, 변경된 이미지로 dot 활성화
+// current: 클릭 전 활성화된 이미지
+// change: 클릭 후 활성화될 이미지
+function prevNext(current, change) {
+  carouselImg.setAttribute("src", imgSrc + imgName[change]);
+  carouselDot[current].classList.remove("active");
+  carouselDot[change].classList.add("active");
 }
 
 // 다음 버튼 클릭시 다음 이미지 변경
@@ -75,7 +95,6 @@ for (var idxDotBtn = 0; idxDotBtn < totalImg; idxDotBtn++) {
     });
   }(idxDotBtn);
 }
-
 /* 또는 forEach 사용.
 call() 메서드의 첫번째 인자로 전달되는 객체를 this로 지정할 수 있다.
 [].forEach.call(carouselDot, function (el, idxDot) {
@@ -84,16 +103,3 @@ call() 메서드의 첫번째 인자로 전달되는 객체를 this로 지정할
     nowImg = idxDot;
   });
 }); */
-
-// 변경된 이미지 활성화
-// current: 클릭 전 활성화된 이미지
-// change: 클릭 후 활성화될 이미지
-function prevNext(current, change) {
-  var currentNum = current + 1;
-  var changeNum = change + 1;
-  var imgSrc = carouselImg.getAttribute("src").split(currentNum +".jpg")[0];
-  carouselImg.setAttribute("src", imgSrc + changeNum + '.jpg');
-  carouselImg.setAttribute("alt", changeNum);
-  carouselDot[current].classList.remove("active");
-  carouselDot[change].classList.add("active");
-}

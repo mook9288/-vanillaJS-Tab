@@ -18,24 +18,7 @@
   display: block;
   width: 100%;
 }
-/* 
-.carousel-list::after {
-  content: '';
-  display: block;
-  clear: both;
-}
 
-.carousel-list li {
-  list-style:none;
-  display: none;
-  float: left;
-  width: 100%;
-}
-
-.carousel-list li.active {
-  display: block;
-}
-*/
 .carousel-arr button {
   position: absolute;
   top: 50%;
