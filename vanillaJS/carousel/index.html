@@ -33,10 +33,6 @@
 
     var arrDot = [];
     var dotBtn = document.querySelectorAll(".carousel-dots button");
-    var carouselImg = document.querySelector(".carousel-list img");
-    var carouselNext = document.querySelector(".carousel-arr .arr-next");
-    var carouselPrev = document.querySelector(".carousel-arr .arr-prev");
-
     for (var dotBtnIdx = 0; dotBtnIdx < totalImg; dotBtnIdx++) {
       arrDot[dotBtnIdx] = function (idx) {
         dotBtn[idx].addEventListener("click", function () {
@@ -45,17 +41,8 @@
         });
       }(dotBtnIdx);
     }
-
-    carouselNext.addEventListener("click", function () {
-      currentImg = nowImg;
-      nowImg++;
-      if (nowImg >= totalImg) {
-        nowImg = 0;
-      }
-      prevNext(currentImg, nowImg);
-    });
-
-    carouselPrev.addEventListener("click", function () {
+  
+    document.querySelector(".carousel-arr .arr-prev").addEventListener("click", function () {
       currentImg = nowImg;
       nowImg--;
       if (nowImg <= -1) {
@@ -65,7 +52,7 @@
     });
 
     function prevNext(current, change) {
-      carouselImg.setAttribute("src", imgSrc + imgName[change]);
+      document.querySelector(".carousel-list img").setAttribute("src", imgSrc + imgName[change]);
       dotBtn[current].classList.remove("active");
       dotBtn[change].classList.add("active");
     }
