@@ -79,12 +79,25 @@ carouselPrev.addEventListener("click", function () {
 });
 
 // Dot 버튼 클릭시 해당 index 이미지로 변경
-// carouselDot은 같은 기능을 가진 여러개의 Dot 버튼을 유사배열로 받음(배열은 아님!)
-// for문 안에 직접 익명함수 내용을 넣으면 classList가 정의 되지 않아 읽을 수 없다는 에러가 발생한다.
-// prevNext()을 빼고 console에 idxDot을 찍어봤는데 5만 찍힘.
-// 변수 idxDot의 값이 외부 변수가 아님. 5로 정의되어 전역변수가 됨..(for이 다 돌고 나서 5로 재정의.)
-// 이럴땐, 익명함수를 이용하거나 외부함수를 사용하면 해결 됨.
+// carouselDot은 .carousel-dots안의 모든 button을 지칭
+// 같은 일을 하기 때문에 공통된 click이벤트를 주기 위해 button을 유사배열로 받아야 함.(배열은 아님!)
+// var carouselDot = document.querySelectorAll(".carousel-dots button");
+// for (var idxDotBtn = 0; idxDotBtn < totalImg; idxDotBtn++) {
+//   carouselDot[idxDotBtn].addEventListener("click", function () {
+//     console.log(idxDotBtn);
+//     prevNext(nowImg, idxDotBtn);
+//     nowImg = idxDotBtn;
+//   });
+// }
+// for문 안에 직접 click이벤트를 넣으면 classList가 정의되지 않아 읽을 수 없다는 에러가 발생
+// console.log(idxDotBtn); // 5만 찍힘... 읭???? 왜???? 어째서?? 이유는????
+// 일단 변수 idxDotBtn은 함수스코프도 블록스코프도 아님. 따라서 전역변수임.
+// carouselDot의 click이벤트는 idxDotBtn을 사용해야하는데...
+// idxDotBtn은 블록스코프의 외부 변수가 아니라서? 지역변수가 아니라서?
+// for문이 다 돌고난 후, 변수 idxDotBtn가 5로 재정의 되버린 변수 값을 계속 받음.
+// 그리고 반환값을 담을 배열을 따로 생성하고 외부함수를 익명함수로 사용해주면 해결 됨.
 // 내부함수의 변수가 외부함수의 지역변수를 참조하게 해주면 된다.
+// 외부함수 호출하면서 내부함수를 반환하게 되는데 이때 내부함수의 반환값이 배열에 담기게 된다.
 var arrDot = [];
 var carouselDot = document.querySelectorAll(".carousel-dots button");
 for (var idxDotBtn = 0; idxDotBtn < totalImg; idxDotBtn++) {
@@ -95,7 +108,7 @@ for (var idxDotBtn = 0; idxDotBtn < totalImg; idxDotBtn++) {
     });
   }(idxDotBtn);
 }
-/* 또는 forEach 사용.
+/* 또는 forEach 사용하면 해결.
 call() 메서드의 첫번째 인자로 전달되는 객체를 this로 지정할 수 있다.
 [].forEach.call(carouselDot, function (el, idxDot) {
   el.addEventListener("click", function () {
