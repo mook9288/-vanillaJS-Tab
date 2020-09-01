@@ -9,12 +9,12 @@
   <h1>게임 - 숫자 야구</h1>
 
   <div class="game-start-button">
-    <button>Game Start!!!</button>
+    <button class="btn-start">Game Start!!!</button>
   </div>
-
+  
   <div class="enter-number">
-    <input type="text" />
-    <button>Send</button>
+    <input type="text" placeholder="숫자 3자리만 입력하세요." class="input-number" onkeypress="enterNumberOnly()" style="ime-mode:disabled">
+    <button class="btn-send">Send</button>
   </div>
 
   <div class="score">
@@ -51,5 +51,35 @@
       </tbody>
     </table>
   </div>
+<script>
+  function enterNumberOnly(){
+    if((event.keyCode<48) || (event.keyCode>57)){
+      event.returnValue=false;
+    }
+  }
+
+
+  document.querySelector(".btn-start").addEventListener("click", function (e) {
+    var randomArray = [];
+    for (var index = 0; index < 3; index++) {
+      var randomNumber = Math.floor(Math.random()*(9));
+      randomArray.push(randomNumber);
+    }
+    return console.log(randomArray);
+  })
+
+  document.querySelector(".btn-send").addEventListener("click", function (e) {
+    var inputValue = document.querySelector(".input-number").value;
+    if (inputValue.length === 3) {
+      var valueArray = [];
+      for (var valueIndex = 0; valueIndex < inputValue.length; valueIndex++) {
+        valueArray.push(parseInt(inputValue[valueIndex]));
+      }
+      return console.log(valueArray);
+    } else {
+      alert("숫자 3자리만 입력하세요.");
+    }
+  });
+</script>
 </body>
 </html>
