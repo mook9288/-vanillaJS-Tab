@@ -59,8 +59,8 @@
   }
 
 
+  var randomArray = [];
   document.querySelector(".btn-start").addEventListener("click", function (e) {
-    var randomArray = [];
     for (var index = 0; index < 3; index++) {
       var randomNumber = Math.floor(Math.random()*(9));
       randomArray.push(randomNumber);
@@ -70,12 +70,35 @@
 
   document.querySelector(".btn-send").addEventListener("click", function (e) {
     var inputValue = document.querySelector(".input-number").value;
+    var valueArray = [];
     if (inputValue.length === 3) {
-      var valueArray = [];
       for (var valueIndex = 0; valueIndex < inputValue.length; valueIndex++) {
         valueArray.push(parseInt(inputValue[valueIndex]));
       }
-      return console.log(valueArray);
+      console.log(randomArray, valueArray);
+      for (let randomArrayIndex = 0; randomArrayIndex < randomArray.length; randomArrayIndex++) {
+        // console.log(randomArray.length);
+        for (let valueArrayIndex = 0; valueArrayIndex < valueArray.length; valueArrayIndex++) {
+          switch (valueArray) {
+            case randomArray[valueArrayIndex]:
+              console.log(randomArrayIndex, 'S');
+              break;
+            case randomArray[randomArrayIndex - 1]:
+              console.log(randomArrayIndex, 'B');
+              break;
+            case randomArray[randomArrayIndex + 1]:
+              console.log(randomArrayIndex, 'B');
+              break;
+            default:
+              console.log(randomArrayIndex, 'out');
+              break;
+          }
+        }
+        // if (randomArray[randomArrayIndex] === valueArray[randomArrayIndex]) {
+        //   console.log(randomArrayIndex, 'S');
+        // }
+      }
+      // return console.log(randomArray, valueArray, randomArray === valueArray);
     } else {
       alert("숫자 3자리만 입력하세요.");
     }
