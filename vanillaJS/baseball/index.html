@@ -6,7 +6,7 @@
   <title>Baseball Game</title>
 </head>
 <body>
-  <h1>게임 - 숫자 야구</h1>
+  <h1 style="font-size: 20px;">게임 - 숫자 야구</h1>
 
   <div class="game-start-button">
     <button class="btn-start">Game Start!!!</button>
@@ -58,51 +58,70 @@
     }
   }
 
-
+  var count = 0;
+  var strike = 0;
+  var ball = 0;
+  var number = 3;
   var randomArray = [];
-  document.querySelector(".btn-start").addEventListener("click", function (e) {
-    for (var index = 0; index < 3; index++) {
-      var randomNumber = Math.floor(Math.random()*(9));
-      randomArray.push(randomNumber);
+  var gameButton = document.querySelector(".btn-start");
+  var replayButton = document.querySelector(".game-start-button button");
+  var input = document.querySelector(".input-number");
+
+  gameButton.addEventListener("click", function (e) {
+    if (gameButton.getAttribute("class") === "btn-start") {
+      for (var randomIndex = 0; randomIndex < number; randomIndex++) {
+        var randomNumber = Math.floor(Math.random()*10);
+        randomArray.push(randomNumber);
+      }
+      gameButton.setAttribute("class", "btn-replay");
+    } else {
+      randomArray = [];
+      gameButton.setAttribute("class", "btn-start");
     }
     return console.log(randomArray);
-  })
+  });
 
   document.querySelector(".btn-send").addEventListener("click", function (e) {
-    var inputValue = document.querySelector(".input-number").value;
+    var inputValue = input.value;
     var valueArray = [];
-    if (inputValue.length === 3) {
-      for (var valueIndex = 0; valueIndex < inputValue.length; valueIndex++) {
-        valueArray.push(parseInt(inputValue[valueIndex]));
+    count++;
+    if (count >= 9) {
+      reset(count);
+    }
+    if (inputValue.length === number) {
+      for (var valueArrayIndex = 0; valueArrayIndex < inputValue.length; valueArrayIndex++) {
+        valueArray.push(parseInt(inputValue[valueArrayIndex]));
       }
-      console.log(randomArray, valueArray);
-      for (let randomArrayIndex = 0; randomArrayIndex < randomArray.length; randomArrayIndex++) {
-        // console.log(randomArray.length);
-        for (let valueArrayIndex = 0; valueArrayIndex < valueArray.length; valueArrayIndex++) {
-          switch (valueArray) {
-            case randomArray[valueArrayIndex]:
-              console.log(randomArrayIndex, 'S');
-              break;
-            case randomArray[randomArrayIndex - 1]:
-              console.log(randomArrayIndex, 'B');
-              break;
-            case randomArray[randomArrayIndex + 1]:
-              console.log(randomArrayIndex, 'B');
-              break;
-            default:
-              console.log(randomArrayIndex, 'out');
-              break;
+      for (var i = 0; i < number; i++) {
+        for (var j = 0; j < number; j++) {
+          if (randomArray[i] === inputValue[j]) {
+            if (i === j) {
+              strike++;
+            } else {
+              ball++;
+            }
+            break;
           }
         }
-        // if (randomArray[randomArrayIndex] === valueArray[randomArrayIndex]) {
-        //   console.log(randomArrayIndex, 'S');
-        // }
       }
-      // return console.log(randomArray, valueArray, randomArray === valueArray);
+      console.log(typeof(randomArray[1]), typeof(valueArray[1]), strike, ball);
     } else {
       alert("숫자 3자리만 입력하세요.");
+      inputValue='';
     }
   });
+
+  function reset(count) {
+    if (count >= 9) {
+      alert("Game Over");
+    } else {
+      alert("Game End");
+    }
+    count = 0;
+    input.value='';
+    randomArray = [];
+    gameButton.setAttribute("class", "btn-start");
+  }
 </script>
 </body>
 </html>
