@@ -13,8 +13,8 @@
   </div>
   
   <div class="enter-number">
-    <input type="text" placeholder="숫자 3자리만 입력하세요." class="input-number" onkeypress="enterNumberOnly()" style="ime-mode:disabled">
-    <button class="btn-send">Send</button>
+    <input type="text" placeholder="숫자 3자리만 입력하세요." class="input-number" disabled onkeypress="enterNumberOnly()" style="ime-mode:disabled">
+    <button class="btn-send" disabled>Send</button>
   </div>
 
   <div class="score">
@@ -22,106 +22,13 @@
       <thead>
         <tr>
           <th>횟수</th>
-          <th colspan="3">숫자</th>
+          <th>숫자</th>
           <th>판정</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>5</td>
-          <td>6</td>
-          <td>7</td>
-          <td>Out!!!</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>1</td>
-          <td>3</td>
-          <td>8</td>
-          <td>0S 1B</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>2</td>
-          <td>3</td>
-          <td>8</td>
-          <td>1S 0B</td>
-        </tr>
-      </tbody>
+      <tbody></tbody>
     </table>
   </div>
-<script>
-  function enterNumberOnly(){
-    if((event.keyCode<48) || (event.keyCode>57)){
-      event.returnValue=false;
-    }
-  }
-
-  var count = 0;
-  var strike = 0;
-  var ball = 0;
-  var number = 3;
-  var randomArray = [];
-  var gameButton = document.querySelector(".btn-start");
-  var replayButton = document.querySelector(".game-start-button button");
-  var input = document.querySelector(".input-number");
-
-  gameButton.addEventListener("click", function (e) {
-    if (gameButton.getAttribute("class") === "btn-start") {
-      for (var randomIndex = 0; randomIndex < number; randomIndex++) {
-        var randomNumber = Math.floor(Math.random()*10);
-        randomArray.push(randomNumber);
-      }
-      gameButton.setAttribute("class", "btn-replay");
-    } else {
-      randomArray = [];
-      gameButton.setAttribute("class", "btn-start");
-    }
-    return console.log(randomArray);
-  });
-
-  document.querySelector(".btn-send").addEventListener("click", function (e) {
-    var inputValue = input.value;
-    var valueArray = [];
-    count++;
-    if (count >= 9) {
-      reset(count);
-    }
-    if (inputValue.length === number) {
-      for (var valueArrayIndex = 0; valueArrayIndex < inputValue.length; valueArrayIndex++) {
-        valueArray.push(parseInt(inputValue[valueArrayIndex]));
-      }
-      for (var i = 0; i < number; i++) {
-        for (var j = 0; j < number; j++) {
-          if (randomArray[i] === inputValue[j]) {
-            if (i === j) {
-              strike++;
-            } else {
-              ball++;
-            }
-            break;
-          }
-        }
-      }
-      console.log(typeof(randomArray[1]), typeof(valueArray[1]), strike, ball);
-    } else {
-      alert("숫자 3자리만 입력하세요.");
-      inputValue='';
-    }
-  });
-
-  function reset(count) {
-    if (count >= 9) {
-      alert("Game Over");
-    } else {
-      alert("Game End");
-    }
-    count = 0;
-    input.value='';
-    randomArray = [];
-    gameButton.setAttribute("class", "btn-start");
-  }
-</script>
+  <script src="baseball.js"></script>
 </body>
 </html>
