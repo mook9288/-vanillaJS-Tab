@@ -4,6 +4,7 @@ var count = 0;
 var strike = 0;
 var ball = 0;
 var randomArray = [];
+var valueArray = [];
 
 var gameButton = document.querySelector(".game-start-button button");
 var input = document.querySelector(".input-number");
@@ -30,7 +31,6 @@ gameButton.addEventListener("click", function (e) {
 
 // Input 입력값 제한 및 Enter키 눌렀을 때
 function enterKeyDown() {
-  var valueArray = [];
   ball = 0;
   strike = 0;
 
