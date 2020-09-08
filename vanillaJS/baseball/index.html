@@ -4,31 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Baseball Game</title>
+  <link rel="stylesheet" href="baseball.css">
 </head>
 <body>
-  <h1 style="font-size: 20px;">게임 - 숫자 야구</h1>
+  <h1>게임 - 숫자 야구</h1>
+  <div class="divide">
+    <div>
+      <dl class="game-rules">
+        <dt>※ 게임 방법 ※</dt>
+        <dd><strong>10회</strong>의 도전 기회.</dd>
+        <dd>0~9까지의 <u>서로 다른 <strong>숫자 3개</strong></u> 입력.</dd>
+        <dd>숫자는 <u>맞지만 위치가 틀렸을 때</u>는 <strong>ball</strong>.</dd>
+        <dd>숫자와 위치가 <u>모두 맞을 때</u>는 <strong>strike</strong>.</dd>
+        <dd>숫자와 위치가 <u>모두 틀렸을 때</u>는 <strong>out</strong>!</dd>
+        <dd>무엇이 <strong>ball</strong>이고 <strong>strike</strong>인지는 비밀😜</dd>
+      </dl>
+      <div class="game-start-button">
+        <button class="btn-start">Game Start!!!</button>
+      </div>
+      <div class="enter-number">
+        <input type="text" placeholder="숫자 3자리 입력" class="input-number" disabled onkeypress="enterKeyDown()">
+        <!-- <button class="btn-send" disabled>Send</button> -->
+      </div>
+    </div>
+    <div class="score">
+      <table>
+        <thead>
+          <tr>
+            <th>횟수</th>
+            <th>입력한 숫자</th>
+            <th>판정</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
 
-  <div class="game-start-button">
-    <button class="btn-start">Game Start!!!</button>
-  </div>
-  
-  <div class="enter-number">
-    <input type="text" placeholder="숫자 3자리만 입력하세요." class="input-number" disabled onkeypress="enterNumberOnly()" style="ime-mode:disabled">
-    <button class="btn-send" disabled>Send</button>
-  </div>
-
-  <div class="score">
-    <table>
-      <thead>
-        <tr>
-          <th>횟수</th>
-          <th>숫자</th>
-          <th>판정</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
   <script src="baseball.js"></script>
 </body>
 </html>

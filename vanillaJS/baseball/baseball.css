@@ -1,29 +1,61 @@
 * { margin:0; padding:0; box-sizing: border-box;}
-html, body {
-  width: 100%;
-  height: 100%;
+
+h1 {
+  font-size: 24px;
+  text-align: center;
 }
-.wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
+
+.divide::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.divide > div {
+  float: left;
+  padding: 20px;
+}
+
+button {
+  padding: 4px 8px;
+}
+
+.game-rules dt {
+  list-style: none;
+  font-weight: bold;
+}
+
+.game-rules dd {
+  font-size: 13px;
 }
 
 .game-start-button {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,.5);
+  margin: 10px 0;
 }
 
 .game-start-button button {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 10px 20px;
+  width: 120px;
+}
+
+.enter-number .input-number {
+  padding: 4px 8px;
+  width: 120px;
+  ime-mode: disabled;
+}
+
+.score table {
+  table-layout: fixed;
+  width: 300px;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.score th {
+  background-color: #e5e5e5;
+  border: 1px solid #333;
+}
+
+.score td {
+  border: 1px solid #333;
+  text-align: center;
 }
