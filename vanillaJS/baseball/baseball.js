@@ -10,7 +10,7 @@ var gameButton = document.querySelector(".game-start-button button");
 var input = document.querySelector(".input-number");
 var scoreTable = document.querySelector(".score tbody");
 
-// Start & Replay 버튼 작동
+// Start & Restart 버튼 작동
 gameButton.addEventListener("click", function (e) {
   randomArray = [];
   count = 0;
@@ -23,18 +23,17 @@ gameButton.addEventListener("click", function (e) {
       }
     }
   }
-  gameButton.innerHTML="Game Replay";
-  input.value = '';
+  gameButton.innerHTML = "Game Restart";
+  input.value = null;
   input.removeAttribute("disabled");
-  scoreTable.innerHTML = '';
+  scoreTable.innerHTML = null;
 });
 
 // Input 입력값 제한 및 Enter키 눌렀을 때
 function enterKeyDown() {
   ball = 0;
   strike = 0;
-
-  if(event.keyCode == 13) {
+  if(event.keyCode === 13) {
     if (input.value.length === number) {
       count++;
 
@@ -44,10 +43,10 @@ function enterKeyDown() {
       }
 
       // 생성된 값과 입력한 값 대응 비교..
-      for (var i = 0; i < number; i++) {
-        for (var j = 0; j < number; j++) {
-          if (randomArray[i] == valueArray[j]) {
-            if (i === j) {
+      for (var startIndex = 0; startIndex < number; startIndex++) {
+        for (var enterIndex = 0; enterIndex < number; enterIndex++) {
+          if (randomArray[startIndex] == valueArray[enterIndex]) {
+            if (startIndex === enterIndex) {
               strike++;
             } else {
               ball++;
@@ -73,7 +72,7 @@ function enterKeyDown() {
     } else {
       alert("숫자 3자리만 입력하세요.");
     }
-    input.value = '';
+    input.value = null;
   } else if ((event.keyCode < 48) || (event.keyCode > 57)) {
     alert("숫자만 입력 가능합니다.");
     event.returnValue = false;
@@ -84,8 +83,8 @@ function enterKeyDown() {
 function reset(count) {
   count = 0;
   randomArray = [];
-  gameButton.innerHTML="Game Start!!!";
-  input.value='';
+  gameButton.innerHTML = "Game Start!!!";
+  input.value = null;
   input.setAttribute("disabled", true);
-  scoreTable.innerHTML = '';
+  scoreTable.innerHTML = null;
 }
