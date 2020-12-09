@@ -27,7 +27,7 @@
     }
 
     const wordSplit = inputWord.value;
-    const movement = +inputNumber.value;
+    const movement = +inputNumber.value % wordSplit.length;
     const directionLeft = inputDirection.value === "L" || inputDirection.value === "l";
     let wordResult = "";
 
