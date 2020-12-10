@@ -1,13 +1,7 @@
 @charset "utf-8";
 
-body,
-p,
-h1,
-dl,
-dt,
-dd,
-button,
-input {
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
@@ -19,6 +13,7 @@ input {
 
 h1 {
   margin: 30px auto;
+  text-align: center;
 }
 
 .inp-box {
@@ -29,17 +24,17 @@ h1 {
 .inp-box dt,
 .inp-box dd {
   flex: 0 0 auto;
-  height: 28px;
+  height: 30px;
   margin: 5px 0;
 }
 
 .inp-box dt {
   padding-right: 10px;
-  line-height: 28px;
+  line-height: 30px;
 }
 
 .inp-box dd input {
-  height: 24px;
+  height: 30px;
 }
 
 .result-box {
