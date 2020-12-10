@@ -56,6 +56,7 @@
         let movingLine = '';
         let cellPush = '';
         let horizontalLine = '';
+        let verticalityLine = [];
 
         if (element === CUBE_CODE.U) {
           console.log("U  가장 윗줄을 왼쪽으로 한 칸 밀기");
@@ -92,15 +93,85 @@
         } else if (element === CUBE_CODE.R) {
           console.log("R  가장 오른쪽 줄을 위로 한 칸 밀기");
           movingLine = meoveCube(CUBE_CODE.R);
+
+          let count = 0;
+
+          for (let i = 0; i < movingLine.length; i++) {
+            verticalityLine[i] = initCubeArray[movingLine[i]];
+          }
+
+          cellPush = verticalityLine.shift();
+          verticalityLine.splice(movingLine[2], 0, cellPush);
+
+          for (let j = 0; j < initCubeArray.length; j++) {
+            const rowNum = j % 3;
+            if (rowNum === 2) {
+              initCubeArray[j] = verticalityLine[count];
+              count++;
+            }
+          }
         } else if (element === CUBE_CODE.R_OPP) {
           console.log("R' 가장 오른쪽 줄을 아래로 한 칸 밀기");
           movingLine = meoveCube(CUBE_CODE.R_OPP);
+
+          let count = 0;
+
+          for (let i = 0; i < movingLine.length; i++) {
+            verticalityLine[i] = initCubeArray[movingLine[i]];
+          }
+
+          cellPush = verticalityLine.pop();
+          verticalityLine.unshift(cellPush);
+
+          for (let j = 0; j < initCubeArray.length; j++) {
+            const rowNum = j % 3;
+            if (rowNum === 2) {
+              initCubeArray[j] = verticalityLine[count];
+              count++;
+            }
+          }
         } else if (element === CUBE_CODE.L) {
           console.log("L  가장 왼쪽 줄을 아래로 한 칸 밀기");
           movingLine = meoveCube(CUBE_CODE.L);
+
+          let count = 0;
+
+          for (let i = 0; i < movingLine.length; i++) {
+            verticalityLine[i] = initCubeArray[movingLine[i]];
+          }
+          console.log(verticalityLine);
+
+          cellPush = verticalityLine.pop();
+          verticalityLine.unshift(cellPush);
+
+          for (let j = 0; j < initCubeArray.length; j++) {
+            const rowNum = j % 3;
+            if (rowNum === 0) {
+              initCubeArray[j] = verticalityLine[count];
+              count++;
+            }
+          }
         } else if (element === CUBE_CODE.L_OPP) {
           console.log("L' 가장 왼쪽 줄을 위로 한 칸 밀기");
           movingLine = meoveCube(CUBE_CODE.L_OPP);
+
+          let count = 0;
+
+          for (let i = 0; i < movingLine.length; i++) {
+            verticalityLine[i] = initCubeArray[movingLine[i]];
+          }
+          console.log(verticalityLine);
+
+          cellPush = verticalityLine.shift();
+          verticalityLine.splice(movingLine[2], 0, cellPush);
+
+          for (let j = 0; j < initCubeArray.length; j++) {
+            const rowNum = j % 3;
+            if (rowNum === 0) {
+              initCubeArray[j] = verticalityLine[count];
+              count++;
+            }
+          }
         } else if (element === CUBE_CODE.Q) {
           console.log("Q  Bye~를 출력하고 프로그램을 종료한다.");
           alert("Bye~");
