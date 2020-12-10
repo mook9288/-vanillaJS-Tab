@@ -8,6 +8,11 @@
   resultButton.addEventListener("click", handleClickEvent);
 
   function handleClickEvent() {
+    const wordSplit = inputWord.value;
+    const movement = +inputNumber.value % wordSplit.length;
+    const directionLeft = inputDirection.value === "L" || inputDirection.value === "l";
+    let wordResult = "";
+
     if (!inputWord.value) {
       return alert("단어를 입력하세요.");
     }
@@ -25,11 +30,6 @@
       alert("방향을 나타내는 L, R 의 대소문자만 입력 가능합니다.\n왼쪽으로 밀어낼 경우, L 또는 l\n오른쪽으로 밀어낼 경우, R 또는 r");
       return inputDirection.value = '';
     }
-
-    const wordSplit = inputWord.value;
-    const movement = +inputNumber.value % wordSplit.length;
-    const directionLeft = inputDirection.value === "L" || inputDirection.value === "l";
-    let wordResult = "";
 
     if (directionLeft) {
       wordResult = wordSplit.slice(movement) + wordSplit.slice(0, movement);
