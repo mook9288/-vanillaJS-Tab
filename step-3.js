@@ -15,11 +15,12 @@
   resultButton.addEventListener("click", handleClickEvent);
 
   function fillCubeCell() {
-    [...cubes].innerHTML = "";
-
     for (let i = 0; i < initCubeArray.length; i++) {
+      cubes[i].innerHTML = '';
+
       for (let j = 0; j < initCubeArray[i].length; j++) {
-        cubes[i].innerHTML += `<span class="color-${i}">${initCubeArray[i][j]}</span>`;
+        const color = initCubeArray[i][j];
+        cubes[i].innerHTML += `<span class="color-${color.toLocaleLowerCase()}">${color}</span>`;
       }
     }
   }
@@ -30,9 +31,24 @@
     } else if (inpCode.value[0] === "'") {
       alert("맨 앞에 '은 올 수 없습니다.");
       return inpCode.value = "";
-    } else if (inpCode.value.replace(/[udlrfb']/gi, "")) {
+    } else if (inpCode.value.replace(/[udlrfbq']/gi, "")) {
       alert("올바른 CUBE 동작 코드가 아닙니다.");
       return inpCode.value = "";
     }
+
+    receiveEnterCode();
+  }
+
+  function receiveEnterCode() {
+    const inpCodeArray = inpCode.value.toUpperCase().split("");
+
+    inpCodeArray.forEach(function (item, index, arr) {
+      if (item === "'") {
+        arr[index - 1] += "'";
+        arr.splice(index, 1);
+      }
+    });
+
+    console.log(inpCodeArray);
   }
 })();

@@ -123,30 +123,30 @@ h1 {
   border-bottom: 1px solid #333333;
 }
 
-.cube .color-0 {
+.cube .color-b {
   color: #ffffff;
   background-color: #0040ff;
 }
 
-.cube .color-1 {
+.cube .color-w {
   background-color: #ffffff;
 }
 
-.cube .color-2 {
+.cube .color-o {
   color: #ffffff;
   background-color: #ff9933;
 }
 
-.cube .color-3 {
+.cube .color-g {
   color: #ffffff;
   background-color: #00cc00;
 }
 
-.cube .color-4 {
+.cube .color-y {
   background-color: #ffff33;
 }
 
-.cube .color-5 {
+.cube .color-r {
   color: #ffffff;
   background-color: #ff0000;
 }
