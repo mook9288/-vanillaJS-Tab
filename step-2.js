@@ -20,7 +20,7 @@
     } else if (inpCode.value[0] === "'") {
       alert("맨 앞에 '은 올 수 없습니다.");
       return inpCode.value = '!!!';
-    } else if (inpCode.value.replace(/[urlbq']/gi, "")) {
+    } else if (inpCode.value.replace(/[curlbq']/gi, "")) {
       alert("올바른 CUBE 동작 코드가 아닙니다.");
       return inpCode.value = '???';
     }
@@ -41,12 +41,12 @@
   }
 
   function moveCube(line) {
-    let movingLine = moveLine(line);
-    let movingLineNum = movingLine.length;
-    let movingLineLastIndex = movingLineNum - 1;
-    let cellPush = "";
+    let movedLine = moveLine(line);
+    let movedLineNum = movedLine.length;
+    let movedLineLastIndex = movedLineNum - 1;
+    let movedCell = "";
     let horizontalLine = "";
-    let verticalityLine = [];
+    let movedLineArray = [];
     let count = 0;
     const CUBE_CODE = {
       U: "U",
@@ -57,6 +57,8 @@
       L_OPP: "L'",
       B: "B",
       B_OPP: "B'",
+      C: "C",
+      C_OPP: "C'",
       Q: "Q",
     }
     const CUBE_DIR = {
@@ -69,6 +71,14 @@
     }
 
     switch (line) {
+      case CUBE_CODE.C:
+        moveCirculation(CUBE_DIR.FLAG_T);
+        break;
+
+      case CUBE_CODE.C_OPP:
+        moveCirculation(CUBE_DIR.FLAG_F);
+        break;
+
       case CUBE_CODE.U:
         moveDirLift(CUBE_DIR.HOR_T, CUBE_DIR.FLAG_T);
         break;
@@ -111,48 +121,74 @@
         break;
     }
 
-    function moveDirLift(num, dir) {
-      if (dir) {
-        horizontalLine = initCubeArray.slice(movingLine[0], num);
-      } else {
-        horizontalLine = initCubeArray.slice(movingLine[0]);
+    function moveCirculation(dir) {
+      for (let i = 0; i < initCubeArray.length; i++) {
+        movedLineArray.push(initCubeArray[i]);
       }
 
-      cellPush = horizontalLine.shift();
-      horizontalLine.splice(movingLine[movingLineLastIndex], 0, cellPush);
-      initCubeArray.splice(movingLine[0], movingLineNum, horizontalLine);
+      if (dir) {
+        initCubeArray.splice(0, 1, movedLineArray[6]);
+        initCubeArray.splice(1, 1, movedLineArray[3]);
+        initCubeArray.splice(2, 1, movedLineArray[0]);
+        initCubeArray.splice(3, 1, movedLineArray[7]);
+        initCubeArray.splice(5, 1, movedLineArray[1]);
+        initCubeArray.splice(6, 1, movedLineArray[8]);
+        initCubeArray.splice(7, 1, movedLineArray[5]);
+        initCubeArray.splice(8, 1, movedLineArray[2]);
+      } else {
+        initCubeArray.splice(0, 1, movedLineArray[2]);
+        initCubeArray.splice(1, 1, movedLineArray[5]);
+        initCubeArray.splice(2, 1, movedLineArray[8]);
+        initCubeArray.splice(3, 1, movedLineArray[1]);
+        initCubeArray.splice(5, 1, movedLineArray[7]);
+        initCubeArray.splice(6, 1, movedLineArray[0]);
+        initCubeArray.splice(7, 1, movedLineArray[3]);
+        initCubeArray.splice(8, 1, movedLineArray[6]);
+      }
+    }
+
+    function moveDirLift(num, dir) {
+      if (dir) {
+        horizontalLine = initCubeArray.slice(movedLine[0], num);
+      } else {
+        horizontalLine = initCubeArray.slice(movedLine[0]);
+      }
+
+      movedCell = horizontalLine.shift();
+      horizontalLine.splice(movedLine[movedLineLastIndex], 0, movedCell);
+      initCubeArray.splice(movedLine[0], movedLineNum, horizontalLine);
       initCubeArray = extendFlatArray(initCubeArray);
     }
 
     function moveDirRight(num, dir) {
       if (dir) {
-        horizontalLine = initCubeArray.slice(movingLine[0]);
+        horizontalLine = initCubeArray.slice(movedLine[0]);
       } else {
-        horizontalLine = initCubeArray.slice(movingLine[0], num);
+        horizontalLine = initCubeArray.slice(movedLine[0], num);
       }
 
-      cellPush = horizontalLine.pop();
-      horizontalLine.unshift(cellPush);
-      initCubeArray.splice(movingLine[0], movingLineNum, horizontalLine);
+      movedCell = horizontalLine.pop();
+      horizontalLine.unshift(movedCell);
+      initCubeArray.splice(movedLine[0], movedLineNum, horizontalLine);
       initCubeArray = extendFlatArray(initCubeArray);
     }
 
     function moveVerticality(num, dir) {
-      for (let i = 0; i < movingLineNum; i++) {
-        verticalityLine[i] = initCubeArray[movingLine[i]];
+      for (let i = 0; i < movedLineNum; i++) {
+        movedLineArray[i] = initCubeArray[movedLine[i]];
       }
 
       if (dir) {
-        cellPush = verticalityLine.shift();
-        verticalityLine.splice(movingLine[movingLineLastIndex], 0, cellPush);
+        movedCell = movedLineArray.shift();
+        movedLineArray.splice(movedLine[movedLineLastIndex], 0, movedCell);
       } else {
-        cellPush = verticalityLine.pop();
-        verticalityLine.unshift(cellPush);
+        movedCell = movedLineArray.pop();
+        movedLineArray.unshift(movedCell);
       }
 
       for (let j = 0; j < initCubeArray.length; j++) {
-        if (j % movingLineNum === num) {
-          initCubeArray[j] = verticalityLine[count];
+        if (j % movedLineNum === num) {
+          initCubeArray[j] = movedLineArray[count];
           count++;
         }
       }
@@ -171,7 +207,9 @@
       "L'": [0, 3, 6],
       "B": [6, 7, 8],
       "B'": [6, 7, 8],
-      "B'": [6, 7, 8],
+      "C": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      "C'": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      "Q": '',
     }
 
     return selectedLine[line];

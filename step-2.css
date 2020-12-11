@@ -7,7 +7,6 @@
 }
 
 .wrapper {
-  width: 500px;
   margin: 0 auto;
 }
 
@@ -48,6 +47,37 @@ h1 {
   background-position: left;
 }
 
+.cube-area {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  margin: 30px auto;
+}
+
+.cube-area .cube-box {
+  justify-content: center;
+  align-items: center;
+}
+
+.cube-area .cube-box:last-child {
+  width: 350px;
+  margin-left: 30px;
+}
+
+.cube-area img {
+  width: 70%;
+  height: auto;
+  margin-top: 20px;
+}
+
+.cube-area .code-control dt {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
 .cube {
   display: flex;
   flex-wrap: wrap;
@@ -66,7 +96,7 @@ h1 {
   flex: 0 0 auto;
   justify-content: center;
   align-items: center;
-  width: 33.33%;
+  width: calc(100% / 3);
   font-size: 30px;
   border-right: 1px solid #117864;
   border-left: 1px solid #117864;
