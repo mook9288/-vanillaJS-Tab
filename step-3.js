@@ -49,6 +49,61 @@
       }
     });
 
-    console.log(inpCodeArray);
+    for (let i = 0; i < inpCodeArray.length; i++) {
+      setTimeout(moveCube, 1000 * i, inpCodeArray[i]);
+    }
+  }
+
+  function moveCube(code) {
+    const CUBE_CODE = {
+      U: "U",
+      U_OPP: "U'",
+    }
+    const divisionNum = 3;
+    const movedLine = moveLine(CUBE_CODE.U);
+    let newFaceArray = [];
+    let movedLineArray = [];
+    let initLineArray = '';
+
+    if (code === CUBE_CODE.U) {
+      for (let i = 0; i < initCubeArray.length; i++) {
+        newFaceArray.push(initCubeArray[i]);
+      }
+
+      for (let i = 0; i < movedLine.length; i++) {
+        movedLineArray.push(initCubeArray[movedLine[i]].splice(0, divisionNum));
+      }
+
+      initLineArray = movedLineArray.shift();
+      movedLineArray.push(initLineArray);
+
+      for (let i = 0; i < movedLine.length; i++) {
+        initCubeArray[movedLine[i]].splice(0, 0, movedLineArray[i])
+        initCubeArray[movedLine[i]] = extendFlatArray(initCubeArray[movedLine[i]]);
+      }
+    }
+
+    return fillCubeCell();
+  }
+
+  function extendFlatArray(nestedArray) {
+    var result = [];
+
+    for (var i = 0; i < nestedArray.length; i++) {
+      if (Array.isArray(nestedArray[i])) {
+        result.push(...extendFlatArray(nestedArray[i]));
+      } else {
+        result.push(nestedArray[i]);
+      }
+    }
+    return result;
+  }
+
+  function moveLine(line) {
+    const selectedLine = {
+      "U": [1, 2, 3, 4],
+    }
+
+    return selectedLine[line];
   }
 })();
