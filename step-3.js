@@ -77,7 +77,6 @@
   let faceArray = [];
   let movingLineArray = [];
   let movingCellArray = "";
-  // let movingPos = "";
 
   function categorizeCode(code) {
     let movedLine = "";
@@ -91,6 +90,16 @@
       case CUBE_CODE.U_OPP:
         movedLine = rotateLine(CUBE_FACE.UP);
         rotateTop(movedLine, CUBE_FACE.UP, CUBE_DIR.RL)
+        break;
+
+      case CUBE_CODE.D:
+        movedLine = rotateLine(CUBE_FACE.DOWN);
+        rotateBottom(movedLine, CUBE_FACE.DOWN, CUBE_DIR.LR);
+        break;
+
+      case CUBE_CODE.D_OPP:
+        movedLine = rotateLine(CUBE_FACE.DOWN);
+        rotateBottom(movedLine, CUBE_FACE.DOWN, CUBE_DIR.RL)
         break;
 
       case CUBE_CODE.Q:
@@ -138,14 +147,40 @@
     rotateFaceOfCube(initCubeArray[face], rotatePosition(dir));
   }
 
+  function rotateBottom(line, face, dir) {
+    console.log(line, face, dir);
+    for (let i = 0; i < initCubeArray.length; i++) {
+      faceArray.push(initCubeArray[i]);
+    }
+
+    for (let i = 0; i < line.length; i++) {
+      movingLineArray.push(initCubeArray[line[i]].splice(divisionNum * 2));
+    }
+
+    if (dir === CUBE_DIR.RL) {
+      movingCellArray = movingLineArray.shift();
+      movingLineArray.push(movingCellArray);
+    } else {
+      movingCellArray = movingLineArray.pop();
+      movingLineArray.unshift(movingCellArray);
+    }
+
+    for (let i = 0; i < line.length; i++) {
+      initCubeArray[line[i]].splice(divisionNum * 2, 0, movingLineArray[i])
+      initCubeArray[line[i]] = extendFlatArray(initCubeArray[line[i]]);
+    }
+
+    rotateFaceOfCube(initCubeArray[face], rotatePosition(dir));
+  }
+
   function rotateLine(line) {
     const selectedLine = {
       0: [1, 2, 3, 4],
-      1: [1, 2, 3, 4],
-      2: [0, 2, 5, 4],
+      1: [0, 2, 5, 4],
+      2: [0, 1, 3, 5],
       3: [0, 2, 5, 4],
-      4: [0, 1, 3, 5],
-      5: [0, 1, 3, 5],
+      4: [0, 1, 2, 3],
+      5: [1, 2, 3, 4],
     }
 
     return selectedLine[line];
