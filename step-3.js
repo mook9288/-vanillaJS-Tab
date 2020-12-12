@@ -10,6 +10,24 @@
   const cubes = document.querySelectorAll(".cube");
   const inpCode = document.querySelector(".inp-code");
   const resultButton = document.querySelector(".btn-result");
+  const CUBE_CODE = {
+    U: "U",
+    U_OPP: "U'",
+    D: "D",
+    D_OPP: "D'",
+  }
+  const CUBE_FACE = {
+    UP: 0,
+    LEFT:1,
+    FRONT: 2,
+    RIGHT: 3,
+    BACK: 4,
+    DOWN: 5,
+  }
+  const CUBE_DIR = {
+    LR: "from L to R",
+    RL: "from R to L",
+  }
 
   fillCubeCell();
   resultButton.addEventListener("click", handleClickEvent);
@@ -36,10 +54,10 @@
       return inpCode.value = "";
     }
 
-    receiveEnterCode();
+    RunCodeSequentially();
   }
 
-  function receiveEnterCode() {
+  function RunCodeSequentially() {
     const inpCodeArray = inpCode.value.toUpperCase().split("");
 
     inpCodeArray.forEach(function (item, index, arr) {
@@ -48,95 +66,86 @@
         arr.splice(index, 1);
       }
     });
+    console.log(inpCodeArray);
 
     for (let i = 0; i < inpCodeArray.length; i++) {
-      setTimeout(rotateCube, 1000 * i, inpCodeArray[i]);
+      setTimeout(categorizeCode, 1000 * i, inpCodeArray[i]);
     }
   }
 
-  function rotateCube(code) {
-    const CUBE_CODE = {
-      U: "U",
-      U_OPP: "U'",
-      D: "D",
-      D_OPP: "D'",
-    }
-    const CUBE_FACE = {
-      UP: 0,
-      LEFT:1,
-      FRONT: 2,
-      RIGHT: 3,
-      BACK: 4,
-      DOWN: 5,
-    }
-    const CUBE_DIR = {
-      LR: "from L to R",
-      RL: "from R to L",
-    }
-    const divisionNum = 3;
-    const movedLine = rotateLine(code);
-    let faceArray = [];
-    let movingLineArray = [];
-    let movingCellArray = "";
-    let movingPos = "";
+  const divisionNum = 3;
+  let faceArray = [];
+  let movingLineArray = [];
+  let movingCellArray = "";
+  // let movingPos = "";
 
-    if (code === CUBE_CODE.U) {
-      for (let i = 0; i < initCubeArray.length; i++) {
-        faceArray.push(initCubeArray[i]);
-      }
+  function categorizeCode(code) {
+    let movedLine = "";
 
-      for (let i = 0; i < movedLine.length; i++) {
-        movingLineArray.push(initCubeArray[movedLine[i]].splice(0, divisionNum));
-      }
+    switch (code) {
+      case CUBE_CODE.U:
+        movedLine = rotateLine(CUBE_FACE.UP);
+        rotateTop(movedLine, CUBE_FACE.UP, CUBE_DIR.LR);
+        break;
 
-      movingCellArray = movingLineArray.shift();
-      movingLineArray.push(movingCellArray);
+      case CUBE_CODE.U_OPP:
+        movedLine = rotateLine(CUBE_FACE.UP);
+        rotateTop(movedLine, CUBE_FACE.UP, CUBE_DIR.RL)
+        break;
 
-      for (let i = 0; i < movedLine.length; i++) {
-        initCubeArray[movedLine[i]].splice(0, 0, movingLineArray[i])
-        initCubeArray[movedLine[i]] = extendFlatArray(initCubeArray[movedLine[i]]);
-      }
-      movingPos = rotatePosition(CUBE_DIR.LR);
-      rotateFaceOfCube(initCubeArray[CUBE_FACE.UP], rotatePosition(CUBE_DIR.LR));
-    } else if (code === CUBE_CODE.U_OPP) {
-      for (let i = 0; i < initCubeArray.length; i++) {
-        faceArray.push(initCubeArray[i]);
-      }
+      case CUBE_CODE.Q:
+        alert("Bye~");
+        initCubeArray = [
+          new Array(9).fill('B'),
+          new Array(9).fill('W'),
+          new Array(9).fill('O'),
+          new Array(9).fill('G'),
+          new Array(9).fill('Y'),
+          new Array(9).fill('R'),
+        ];
+        inpCode.value = "";
+        break;
 
-      for (let i = 0; i < movedLine.length; i++) {
-        movingLineArray.push(initCubeArray[movedLine[i]].splice(0, divisionNum));
-      }
-
-      movingCellArray = movingLineArray.pop();
-      movingLineArray.unshift(movingCellArray);
-
-      for (let i = 0; i < movedLine.length; i++) {
-        initCubeArray[movedLine[i]].splice(0, 0, movingLineArray[i])
-        initCubeArray[movedLine[i]] = extendFlatArray(initCubeArray[movedLine[i]]);
-      }
-
-      movingPos = rotatePosition(CUBE_DIR.RL);
-      rotateFaceOfCube(initCubeArray[CUBE_FACE.UP], movingPos);
-    } else {
-      alert("Bye~");
-      initCubeArray = [
-        new Array(9).fill('B'),
-        new Array(9).fill('W'),
-        new Array(9).fill('O'),
-        new Array(9).fill('G'),
-        new Array(9).fill('Y'),
-        new Array(9).fill('R'),
-      ];
-      inpCode.value = "";
+      default:
+        break;
     }
 
     return fillCubeCell();
   }
 
+  function rotateTop(line, face, dir) {
+    for (let i = 0; i < initCubeArray.length; i++) {
+      faceArray.push(initCubeArray[i]);
+    }
+
+    for (let i = 0; i < line.length; i++) {
+      movingLineArray.push(initCubeArray[line[i]].splice(0, divisionNum));
+    }
+
+    if (dir === CUBE_DIR.LR) {
+      movingCellArray = movingLineArray.shift();
+      movingLineArray.push(movingCellArray);
+    } else {
+      movingCellArray = movingLineArray.pop();
+      movingLineArray.unshift(movingCellArray);
+    }
+
+    for (let i = 0; i < line.length; i++) {
+      initCubeArray[line[i]].splice(0, 0, movingLineArray[i])
+      initCubeArray[line[i]] = extendFlatArray(initCubeArray[line[i]]);
+    }
+
+    rotateFaceOfCube(initCubeArray[face], rotatePosition(dir));
+  }
+
   function rotateLine(line) {
     const selectedLine = {
-      "U": [1, 2, 3, 4],
-      "U'": [1, 2, 3, 4],
+      0: [1, 2, 3, 4],
+      1: [1, 2, 3, 4],
+      2: [0, 2, 5, 4],
+      3: [0, 2, 5, 4],
+      4: [0, 1, 3, 5],
+      5: [0, 1, 3, 5],
     }
 
     return selectedLine[line];
@@ -152,15 +161,14 @@
   }
 
   function rotateFaceOfCube(init, pos) {
-    const copyArray = init;
-    const movedCirArray = [];
+    const movedCycleArray = [];
 
-    for (let i = 0; i < copyArray.length; i++) {
-      movedCirArray.push(copyArray[i]);
+    for (let i = 0; i < init.length; i++) {
+      movedCycleArray.push(init[i]);
     }
-
+    
     for (let j = 0; j < pos.length; j++) {
-      init.splice(j, 1, movedCirArray[pos[j]]);
+      init.splice(j, 1, movedCycleArray[pos[j]]);
     }
   }
 
