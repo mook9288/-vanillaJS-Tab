@@ -1,11 +1,11 @@
 (function () {
   let initCubeArray = [
-    ["1", "1", "1", "B", "B", "B", "B", "B", "B"],
-    ["2", "W", "W", "2", "W", "W", "2", "W", "W"],
+    ["B", "B", "B", "B", "B", "B", "B", "B", "B"],
+    ["W", "W", "W", "W", "W", "W", "W", "W", "W"],
     ["O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["G", "G", "4", "G", "G", "4", "G", "G", "4"],
-    ["1", "Y", "2", "Y", "Y", "Y", "3", "Y", "4"],
-    ["R", "R", "R", "R", "R", "R", "3", "3", "3"],
+    ["G", "G", "G", "G", "G", "G", "G", "G", "G"],
+    ["Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y"],
+    ["R", "R", "R", "R", "R", "R", "R", "R", "R"],
   ];
   const cubes = document.querySelectorAll(".cube");
   const inpCode = document.querySelector(".inp-code");
