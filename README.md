@@ -37,3 +37,15 @@
 #### 주의사항
   - **`B`**의 경우도 **`U`**와 **방향이 반대**임을 주의한다.
   - **`L`**의 경우 **`R`**과 **방향이 반대**임을 주의한다.
+
+## 코드 설명
+- `fillCubeCell()`: 큐브 셀 채우기
+- `handleClickEvent()`: 조작코드에 따라 큐브가 움직이는 함수
+- `RunCodeSequentially()`: 입력값을 조작코드별로 구분하여 배열에 담는 함수
+- `moveCube()`: 조작코드별 이벤트 작동하는 함수
+- `rotateLine()`: 회전하는 면 위치 선택 함수
+- `moveCirculation()`: 큐브의 면을 회전시키는 함수
+- `moveDirLift()`: 큐브의 상/하를 좌측으로 회전시키는 함수
+- `moveDirRight()`: 큐브의 상/하를 우측으로 회전시키는 함수
+- `moveVerticality()`: 큐브의 좌우을 회전시키는 함수
+- `extendFlatArray()`: 다차원 배열을 1차원 배열로 변경하는 함수
