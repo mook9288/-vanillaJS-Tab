@@ -50,6 +50,13 @@
   fillCubeCell();
   resultButton.addEventListener("click", handleClickEvent);
 
+  inpCode.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      resultButton.click();
+    }
+  });
+
   function fillCubeCell() {
     for (let i = 0; i < initCubeArray.length; i++) {
       cubes[i].innerHTML = "";
