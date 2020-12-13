@@ -52,13 +52,7 @@
   }
 
   function moveCube(line) {
-    let movedLine = rotateLine(line);
-    let movedLineNum = movedLine.length;
-    let movedLineLastIndex = movedLineNum - 1;
-    let movingCellArray = "";
-    let horizontalLine = "";
-    let movingLineArray = [];
-    let count = 0;
+    const movedLine = rotateLine(line);
     const CUBE_CODE = {
       U: "U",
       U_OPP: "U'",
@@ -82,44 +76,44 @@
     }
 
     switch (line) {
-      case CUBE_CODE.C:
-        moveCirculation(CUBE_DIR.FLAG_T, movedLine);
-        break;
-
-      case CUBE_CODE.C_OPP:
-        moveCirculation(CUBE_DIR.FLAG_F, movedLine);
-        break;
-
       case CUBE_CODE.U:
-        moveDirLift(CUBE_DIR.HOR_T, CUBE_DIR.FLAG_T);
+        moveDirLift(movedLine, CUBE_DIR.HOR_T, CUBE_DIR.FLAG_T);
         break;
 
       case CUBE_CODE.U_OPP:
-        moveDirRight(CUBE_DIR.HOR_T, CUBE_DIR.FLAG_F);
+        moveDirRight(movedLine, CUBE_DIR.HOR_T, CUBE_DIR.FLAG_F);
         break;
 
       case CUBE_CODE.B:
-        moveDirRight(CUBE_DIR.HOR_B, CUBE_DIR.FLAG_T);
+        moveDirRight(movedLine, CUBE_DIR.HOR_B, CUBE_DIR.FLAG_T);
         break;
 
       case CUBE_CODE.B_OPP:
-        moveDirLift(CUBE_DIR.HOR_B, CUBE_DIR.FLAG_F);
+        moveDirLift(movedLine, CUBE_DIR.HOR_B, CUBE_DIR.FLAG_F);
         break;
 
       case CUBE_CODE.R:
-        moveVerticality(CUBE_DIR.VER_R, CUBE_DIR.FLAG_T);
+        moveVerticality(movedLine, CUBE_DIR.VER_R, CUBE_DIR.FLAG_T);
         break;
 
       case CUBE_CODE.R_OPP:
-        moveVerticality(CUBE_DIR.VER_R, CUBE_DIR.FLAG_F);
+        moveVerticality(movedLine, CUBE_DIR.VER_R, CUBE_DIR.FLAG_F);
         break;
 
       case CUBE_CODE.L:
-        moveVerticality(CUBE_DIR.VER_L, CUBE_DIR.FLAG_F);
+        moveVerticality(movedLine, CUBE_DIR.VER_L, CUBE_DIR.FLAG_F);
         break;
 
       case CUBE_CODE.L_OPP:
-        moveVerticality(CUBE_DIR.VER_L, CUBE_DIR.FLAG_T);
+        moveVerticality(movedLine, CUBE_DIR.VER_L, CUBE_DIR.FLAG_T);
+        break;
+
+      case CUBE_CODE.C:
+        moveCirculation(movedLine);
+        break;
+
+      case CUBE_CODE.C_OPP:
+        moveCirculation(movedLine);
         break;
 
       case CUBE_CODE.Q:
@@ -132,64 +126,79 @@
         break;
     }
 
-    function moveCirculation(dir, pos) {
-      for (let i = 0; i < initCubeArray.length; i++) {
-        movingLineArray.push(initCubeArray[i]);
-      }
-
-      for (let j = 0; j < pos.length; j++) {
-        initCubeArray.splice(j, 1, movingLineArray[pos[j]]);
-      }
-    }
-
-    function moveDirLift(num, dir) {
-      if (dir) {
-        horizontalLine = initCubeArray.slice(movedLine[0], num);
-      } else {
-        horizontalLine = initCubeArray.slice(movedLine[0]);
-      }
-
-      movingCellArray = horizontalLine.shift();
-      horizontalLine.splice(movedLine[movedLineLastIndex], 0, movingCellArray);
-      initCubeArray.splice(movedLine[0], movedLineNum, horizontalLine);
-      initCubeArray = extendFlatArray(initCubeArray);
-    }
-
-    function moveDirRight(num, dir) {
-      if (dir) {
-        horizontalLine = initCubeArray.slice(movedLine[0]);
-      } else {
-        horizontalLine = initCubeArray.slice(movedLine[0], num);
-      }
-
-      movingCellArray = horizontalLine.pop();
-      horizontalLine.unshift(movingCellArray);
-      initCubeArray.splice(movedLine[0], movedLineNum, horizontalLine);
-      initCubeArray = extendFlatArray(initCubeArray);
-    }
-
-    function moveVerticality(num, dir) {
-      for (let i = 0; i < movedLineNum; i++) {
-        movingLineArray[i] = initCubeArray[movedLine[i]];
-      }
-
-      if (dir) {
-        movingCellArray = movingLineArray.shift();
-        movingLineArray.splice(movedLine[movedLineLastIndex], 0, movingCellArray);
-      } else {
-        movingCellArray = movingLineArray.pop();
-        movingLineArray.unshift(movingCellArray);
-      }
-
-      for (let j = 0; j < initCubeArray.length; j++) {
-        if (j % movedLineNum === num) {
-          initCubeArray[j] = movingLineArray[count];
-          count++;
-        }
-      }
-    }
-
     return fillCubeCell();
+  }
+
+  function moveDirLift(line, num, dir) {
+    const lineNum = line.length;
+    const lineLastIndex = lineNum - 1;
+    let movingCellArray = "";
+    let horizontalLine = "";
+
+    if (dir) {
+      horizontalLine = initCubeArray.slice(line[0], num);
+    } else {
+      horizontalLine = initCubeArray.slice(line[0]);
+    }
+
+    movingCellArray = horizontalLine.shift();
+    horizontalLine.splice(line[lineLastIndex], 0, movingCellArray);
+    initCubeArray.splice(line[0], lineNum, horizontalLine);
+    initCubeArray = extendFlatArray(initCubeArray);
+  }
+
+  function moveDirRight(line, num, dir) {
+    const lineNum = line.length;
+    let movingCellArray = "";
+    let horizontalLine = "";
+
+    if (dir) {
+      horizontalLine = initCubeArray.slice(line[0]);
+    } else {
+      horizontalLine = initCubeArray.slice(line[0], num);
+    }
+
+    movingCellArray = horizontalLine.pop();
+    horizontalLine.unshift(movingCellArray);
+    initCubeArray.splice(line[0], lineNum, horizontalLine);
+    initCubeArray = extendFlatArray(initCubeArray);
+  }
+
+  function moveVerticality(line, num, dir) {
+    const lineNum = line.length;
+    const movingLineArray = [];
+    let movingCellArray = "";
+    let count = 0;
+
+    for (let i = 0; i < lineNum; i++) {
+      movingLineArray[i] = initCubeArray[line[i]];
+    }
+
+    if (dir) {
+      movingCellArray = movingLineArray.shift();
+      movingLineArray.splice(line[lineLastIndex], 0, movingCellArray);
+    } else {
+      movingCellArray = movingLineArray.pop();
+      movingLineArray.unshift(movingCellArray);
+    }
+
+    for (let j = 0; j < initCubeArray.length; j++) {
+      if (j % lineNum === num) {
+        initCubeArray[j] = movingLineArray[count];
+        count++;
+      }
+    }
+  }
+
+  function moveCirculation(pos) {
+    const movingLineArray = [];
+    for (let i = 0; i < initCubeArray.length; i++) {
+      movingLineArray.push(initCubeArray[i]);
+    }
+
+    for (let j = 0; j < pos.length; j++) {
+      initCubeArray.splice(j, 1, movingLineArray[pos[j]]);
+    }
   }
 
   function rotateLine(line) {
