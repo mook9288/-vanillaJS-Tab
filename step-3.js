@@ -39,9 +39,7 @@
     L: "L",
     R: "R",
     F: "F",
-    // FL: "FL",
     B: "B",
-    // BL: "BL",
   }
   const divisionNum = 3;
   let countCode = 0;
@@ -117,9 +115,7 @@
       "L": [0, 3, 6],
       "R": [2, 5, 8],
       "F": [6, 7, 8, 0, 3, 6, 0, 1, 2, 2, 5, 8],
-      // "FL": [6, 7, 8, 0, 3, 6, 0, 1, 2, 2, 5, 8],
       "B": [0, 1, 2, 0, 3, 6, 6, 7, 8, 2, 5, 8],
-      // "BL": [0, 1, 2, 0, 3, 6, 6, 7, 8, 2, 5, 8],
     }
 
     return selected[line];
@@ -365,36 +361,6 @@
 
     rotateFaceOfCube(initCubeArray[face], rotatePosition(dir));
   }
-
-  // function rotateBack(line, face, dir, pos) {
-  //   const movingLineArray = selectMovingFace(line, face);
-  //   const copyMovingLineArray = JSON.parse(JSON.stringify(movingLineArray));
-  //   const sideCellIndex = rotateSideCell(pos);
-  //   const obj = {};
-  //   let objKey = 0;
-
-  //   for (let i = 0; i < line.length; i++) {
-  //     obj[objKey] = sideCellIndex.splice(0, 3);
-  //     objKey++;
-  //   }
-
-  //   for (const key in obj) {
-  //     const keyCount = parseInt(key);
-  //     let count = "";
-
-  //     if (dir === CUBE_DIR.LR) {
-  //       count = keyCount === 0 ? keyCount + 3 : keyCount - 1;
-  //     } else {
-  //       count = keyCount === 3 ? 0 : keyCount + 1;
-  //     }
-
-  //     for (let i = 0; i < obj[key].length; i++) {
-  //       movingLineArray[key][obj[key][i]] = copyMovingLineArray[count][obj[count][i]];
-  //     }
-  //   }
-
-  //   rotateFaceOfCube(initCubeArray[face], rotatePosition(dir));
-  // }
 
   function extendFlatArray(nestedArray) {
     var result = [];
