@@ -76,11 +76,11 @@
 
     switch (line) {
       case CUBE_CODE.C:
-        moveCirculation(CUBE_DIR.FLAG_T);
+        moveCirculation(CUBE_DIR.FLAG_T, movedLine);
         break;
 
       case CUBE_CODE.C_OPP:
-        moveCirculation(CUBE_DIR.FLAG_F);
+        moveCirculation(CUBE_DIR.FLAG_F, movedLine);
         break;
 
       case CUBE_CODE.U:
@@ -125,29 +125,15 @@
         break;
     }
 
-    function moveCirculation(dir) {
+    function moveCirculation(dir, pos) {
+      console.log(dir, pos);
       for (let i = 0; i < initCubeArray.length; i++) {
         movingLineArray.push(initCubeArray[i]);
       }
 
-      if (dir) {
-        initCubeArray.splice(0, 1, movingLineArray[6]);
-        initCubeArray.splice(1, 1, movingLineArray[3]);
-        initCubeArray.splice(2, 1, movingLineArray[0]);
-        initCubeArray.splice(3, 1, movingLineArray[7]);
-        initCubeArray.splice(5, 1, movingLineArray[1]);
-        initCubeArray.splice(6, 1, movingLineArray[8]);
-        initCubeArray.splice(7, 1, movingLineArray[5]);
-        initCubeArray.splice(8, 1, movingLineArray[2]);
-      } else {
-        initCubeArray.splice(0, 1, movingLineArray[2]);
-        initCubeArray.splice(1, 1, movingLineArray[5]);
-        initCubeArray.splice(2, 1, movingLineArray[8]);
-        initCubeArray.splice(3, 1, movingLineArray[1]);
-        initCubeArray.splice(5, 1, movingLineArray[7]);
-        initCubeArray.splice(6, 1, movingLineArray[0]);
-        initCubeArray.splice(7, 1, movingLineArray[3]);
-        initCubeArray.splice(8, 1, movingLineArray[6]);
+      for (let j = 0; j < pos.length; j++) {
+        console.log(pos[j], j);
+        initCubeArray.splice(j, 1, movingLineArray[pos[j]]);
       }
     }
 
@@ -211,9 +197,8 @@
       "L'": [0, 3, 6],
       "B": [6, 7, 8],
       "B'": [6, 7, 8],
-      "C": [0, 1, 2, 3, 4, 5, 6, 7, 8],
-      "C'": [0, 1, 2, 3, 4, 5, 6, 7, 8],
-      "Q": "",
+      "C": [6, 3, 0, 7, 4, 1, 8, 5, 2],
+      "C'": [2, 5, 8, 1, 4, 7, 0, 3, 6],
     }
 
     return selectedLine[line];
