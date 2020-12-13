@@ -23,6 +23,7 @@
     F_OPP: "F'",
     B: "B",
     B_OPP: "B'",
+    Q: "Q"
   }
   const CUBE_FACE = {
     UP: 0,
@@ -43,8 +44,7 @@
     BL: "BL",
   }
   const divisionNum = 3;
-  // let faceArray = [];
-  let movingLineArray = [];
+  let countCode = 0;
   let movingCellArray = "";
 
   fillCubeCell();
@@ -84,6 +84,8 @@
         arr.splice(index, 1);
       }
     });
+
+    countCode += inpCodeArray.length;
 
     for (let i = 0; i < inpCodeArray.length; i++) {
       setTimeout(categorizeCode, 1000 * i, inpCodeArray[i]);
@@ -190,7 +192,7 @@
         break;
 
       case CUBE_CODE.Q:
-        alert("Bye~");
+        alert("큐브 조작 총 시도: " + (countCode - 1) + "\nBye~ 종료되었습니다.");
         initCubeArray = [
           new Array(9).fill('B'),
           new Array(9).fill('W'),
@@ -221,23 +223,8 @@
           pushArray.push(initCubeArray[line[i]].splice(divisionNum * 2));
           break;
 
-        case CUBE_FACE.LEFT:
-          pushArray.push(initCubeArray[line[i]]);
-          break;
-
-        case CUBE_FACE.RIGHT:
-          pushArray.push(initCubeArray[line[i]]);
-          break;
-
-        case CUBE_FACE.FRONT:
-          pushArray.push(initCubeArray[line[i]]);
-          break;
-
-        case CUBE_FACE.BACK:
-          pushArray.push(initCubeArray[line[i]]);
-          break;
-
         default:
+          pushArray.push(initCubeArray[line[i]]);
           break;
       }
     }
