@@ -7,6 +7,13 @@
   fillCubeCell();
   resultButton.addEventListener("click", handleClickEvent);
 
+  inpCode.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      resultButton.click();
+    }
+  });
+
   function fillCubeCell() {
     cube.innerHTML = "";
     for (let i = 0; i < initCubeArray.length; i++) {
@@ -126,13 +133,11 @@
     }
 
     function moveCirculation(dir, pos) {
-      console.log(dir, pos);
       for (let i = 0; i < initCubeArray.length; i++) {
         movingLineArray.push(initCubeArray[i]);
       }
 
       for (let j = 0; j < pos.length; j++) {
-        console.log(pos[j], j);
         initCubeArray.splice(j, 1, movingLineArray[pos[j]]);
       }
     }
