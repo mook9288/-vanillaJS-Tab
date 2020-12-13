@@ -4,8 +4,18 @@
   const inputWord = document.querySelector(".inp-word");
   const inputNumber = document.querySelector(".inp-number");
   const inputDirection = document.querySelector(".inp-direction");
+  const allInput =  document.querySelectorAll("input");
 
   resultButton.addEventListener("click", handleClickEvent);
+
+  [...allInput].forEach(function (item, index) {
+    item.addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        resultButton.click();
+      }
+    });
+  });
 
   function handleClickEvent() {
     const wordSplit = inputWord.value;
@@ -14,21 +24,25 @@
     let wordResult = "";
 
     if (!inputWord.value) {
-      return alert("단어를 입력하세요.");
+      alert("단어를 입력하세요.");
+      return inputWord.focus();
     }
 
     if (!inputNumber.value) {
-      return alert("숫자를 입력하세요.");
+      alert("숫자를 입력하세요.");
+      return inputNumber.focus();
     } else if (-100 > inputNumber.value || 100 <= inputNumber.value) {
       alert("-100 <= N < 100\n-100과 100 사이의 정수를 입력하세요.");
       return inputNumber.value = '';
     }
 
     if (!inputDirection.value) {
-      return alert("방향을 입력하세요.");
+      alert("방향을 입력하세요.");
+      return inputDirection.focus();
     } else if (inputDirection.value.replace(/[LRlr]/, "")) {
       alert("방향을 나타내는 L, R 의 대소문자만 입력 가능합니다.\n왼쪽으로 밀어낼 경우, L 또는 l\n오른쪽으로 밀어낼 경우, R 또는 r");
-      return inputDirection.value = '';
+      inputDirection.value = '';
+      return inputDirection.focus();
     }
 
     if (directionLeft) {
