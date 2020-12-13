@@ -46,3 +46,26 @@
 - `B`, `B'` – 뒤 (Back)
 #### 조작코드별 동작되는 위치와 방향
 <img src="step-3-dir.png" width="400"/>
+
+## 코드 설명
+- `initCubeArray`: 초기 배열
+- `CUBE_CODE`: 입력코드
+- `CUBE_FACE`: 움직이는 면
+- `CUBE_DIR`: 움직이는 방향
+- `movingLineArray`: 움직이는 줄 배열
+- `movingCellArray`: 움직이는 셀 배열
+- `fillCubeCell()`: 큐브 셀 채우기
+- `handleClickEvent()`: 조작코드에 따라 큐브가 움직이는 함수
+- `RunCodeSequentially()`: 입력값을 조작코드별로 구분하여 배열에 담는 함수
+- `rotateLine()`: 회전하는 면 위치 선택 함수
+- `rotatePosition()`: 회전하는 셀 위치 선택 함수
+- `categorizeCode()`: 조작코드별 이벤트 작동하는 함수
+- `selectMovingFace()`: 움직이는 면 선택하는 함수
+- `rotateFaceOfCube()`: 큐브의 면을 회전시키는 함수
+- `rotateTop()`: 큐브의 상단을 회전시키는 함수
+- `rotateBottom()`: 큐브의 하단을 회전시키는 함수
+- `rotateUp()`: 큐브의 측면을 아래서 위로 회전시키는 함수
+- `rotateDown()`: 큐브의 측면을 위에서 아래로 회전시키는 함수
+- `rotateFront()`: 큐브의 정면을 회전시키는 함수
+- `rotateBack()`: 큐브의 후면을 회전시키는 함수
+- `extendFlatArray()`: 다차원 배열을 1차원 배열로 변경하는 함수
