@@ -4,7 +4,7 @@
     ["W", "W", "W", "W", "W", "W", "W", "W", "W"],
     ["O", "O", "O", "O", "O", "O", "O", "O", "O"],
     ["G", "G", "G", "G", "G", "G", "G", "G", "G"],
-    ["Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y"],
+    ["1", "Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y"],
     ["R", "R", "R", "R", "R", "R", "R", "R", "R"],
   ];
   const cubes = document.querySelectorAll(".cube");
@@ -38,10 +38,10 @@
     RL: "from R to L",
     L: "L",
     R: "R",
-    FR: "FR",
-    FL: "FL",
-    BR: "BR",
-    BL: "BL",
+    F: "F",
+    // FL: "FL",
+    B: "B",
+    // BL: "BL",
   }
   const divisionNum = 3;
   let countCode = 0;
@@ -116,10 +116,10 @@
     const selected = {
       "L": [0, 3, 6],
       "R": [2, 5, 8],
-      "FR": [6, 7, 8, 0, 3, 6, 0, 1, 2, 2, 5, 8],
-      "FL": [6, 7, 8, 2, 5, 8, 0, 1, 2, 0, 3, 6],
-      "BR": [0, 1, 2, 0, 3, 6, 6, 7, 8, 2, 5, 8],
-      "BL": [0, 1, 2, 2, 5, 8, 6, 7, 8, 0, 3, 6],
+      "F": [6, 7, 8, 0, 3, 6, 0, 1, 2, 2, 5, 8],
+      // "FL": [6, 7, 8, 0, 3, 6, 0, 1, 2, 2, 5, 8],
+      "B": [0, 1, 2, 0, 3, 6, 6, 7, 8, 2, 5, 8],
+      // "BL": [0, 1, 2, 0, 3, 6, 6, 7, 8, 2, 5, 8],
     }
 
     return selected[line];
@@ -180,22 +180,22 @@
 
       case CUBE_CODE.F:
         movedLine = rotateLine(CUBE_FACE.FRONT);
-        rotateFront(movedLine, CUBE_FACE.FRONT, CUBE_DIR.LR, CUBE_DIR.FR);
+        rotateFnB(movedLine, CUBE_FACE.FRONT, CUBE_DIR.LR, CUBE_DIR.F);
         break;
 
       case CUBE_CODE.F_OPP:
         movedLine = rotateLine(CUBE_FACE.FRONT);
-        rotateFront(movedLine, CUBE_FACE.FRONT, CUBE_DIR.LR, CUBE_DIR.FL);
+        rotateFnB(movedLine, CUBE_FACE.FRONT, CUBE_DIR.RL, CUBE_DIR.F);
         break;
 
       case CUBE_CODE.B:
         movedLine = rotateLine(CUBE_FACE.BACK);
-        rotateBack(movedLine, CUBE_FACE.BACK, CUBE_DIR.LR, CUBE_DIR.FR);
+        rotateFnB(movedLine, CUBE_FACE.BACK, CUBE_DIR.LR, CUBE_DIR.B);
         break;
 
       case CUBE_CODE.B_OPP:
         movedLine = rotateLine(CUBE_FACE.BACK);
-        rotateBack(movedLine, CUBE_FACE.BACK, CUBE_DIR.LR, CUBE_DIR.BL);
+        rotateFnB(movedLine, CUBE_FACE.BACK, CUBE_DIR.RL, CUBE_DIR.B);
         break;
 
       case CUBE_CODE.Q:
@@ -336,90 +336,65 @@
     rotateFaceOfCube(initCubeArray[face], rotatePosition(dir));
   }
 
-  function rotateFront(line, face, dir, pos) {
+  function rotateFnB(line, face, dir, pos) {
     const movingLineArray = selectMovingFace(line, face);
     const copyMovingLineArray = JSON.parse(JSON.stringify(movingLineArray));
-    // const sideCellIndex = rotateSideCell(pos);
-    // movingCellArray = copyMovingLineArray.pop();
-    // copyMovingLineArray.unshift(movingCellArray);
+    const sideCellIndex = rotateSideCell(pos);
+    const obj = {};
+    let objKey = 0;
 
-    if (pos === CUBE_DIR.FR) {
-      movingLineArray[0][6] = copyMovingLineArray[3][2];
-      movingLineArray[0][7] = copyMovingLineArray[3][5];
-      movingLineArray[0][8] = copyMovingLineArray[3][8];
-  
-      movingLineArray[1][0] = copyMovingLineArray[0][6];
-      movingLineArray[1][3] = copyMovingLineArray[0][7];
-      movingLineArray[1][6] = copyMovingLineArray[0][8];
-  
-      movingLineArray[2][0] = copyMovingLineArray[1][0];
-      movingLineArray[2][1] = copyMovingLineArray[1][3];
-      movingLineArray[2][2] = copyMovingLineArray[1][6];
-  
-      movingLineArray[3][2] = copyMovingLineArray[2][0];
-      movingLineArray[3][5] = copyMovingLineArray[2][1];
-      movingLineArray[3][8] = copyMovingLineArray[2][2];
-    } else {
-      movingLineArray[0][6] = copyMovingLineArray[1][0];
-      movingLineArray[0][7] = copyMovingLineArray[1][3];
-      movingLineArray[0][8] = copyMovingLineArray[1][6];
-  
-      movingLineArray[1][0] = copyMovingLineArray[2][0];
-      movingLineArray[1][3] = copyMovingLineArray[2][1];
-      movingLineArray[1][6] = copyMovingLineArray[2][2];
-  
-      movingLineArray[2][0] = copyMovingLineArray[3][2];
-      movingLineArray[2][1] = copyMovingLineArray[3][5];
-      movingLineArray[2][2] = copyMovingLineArray[3][8];
-  
-      movingLineArray[3][2] = copyMovingLineArray[0][6];
-      movingLineArray[3][5] = copyMovingLineArray[0][7];
-      movingLineArray[3][8] = copyMovingLineArray[0][8];
+    for (let i = 0; i < line.length; i++) {
+      obj[objKey] = sideCellIndex.splice(0, 3);
+      objKey++;
+    }
+
+    for (const key in obj) {
+      const keyCount = parseInt(key);
+      let count = "";
+
+      if (dir === CUBE_DIR.LR) {
+        count = keyCount === 0 ? keyCount + 3 : keyCount - 1;
+      } else {
+        count = keyCount === 3 ? 0 : keyCount + 1;
+      }
+
+      for (let i = 0; i < obj[key].length; i++) {
+        movingLineArray[key][obj[key][i]] = copyMovingLineArray[count][obj[count][i]];
+      }
     }
 
     rotateFaceOfCube(initCubeArray[face], rotatePosition(dir));
   }
 
-  function rotateBack(line, face, dir, pos) {
-    const movingLineArray = selectMovingFace(line, face);
-    const copyMovingLineArray = JSON.parse(JSON.stringify(movingLineArray));
+  // function rotateBack(line, face, dir, pos) {
+  //   const movingLineArray = selectMovingFace(line, face);
+  //   const copyMovingLineArray = JSON.parse(JSON.stringify(movingLineArray));
+  //   const sideCellIndex = rotateSideCell(pos);
+  //   const obj = {};
+  //   let objKey = 0;
 
-    if (pos === CUBE_DIR.FR) {
-      movingLineArray[0][0] = copyMovingLineArray[3][2];
-      movingLineArray[0][1] = copyMovingLineArray[3][5];
-      movingLineArray[0][2] = copyMovingLineArray[3][8];
-  
-      movingLineArray[1][0] = copyMovingLineArray[0][0];
-      movingLineArray[1][3] = copyMovingLineArray[0][1];
-      movingLineArray[1][6] = copyMovingLineArray[0][2];
-  
-      movingLineArray[2][6] = copyMovingLineArray[1][0];
-      movingLineArray[2][7] = copyMovingLineArray[1][3];
-      movingLineArray[2][8] = copyMovingLineArray[1][6];
-  
-      movingLineArray[3][2] = copyMovingLineArray[2][6];
-      movingLineArray[3][5] = copyMovingLineArray[2][7];
-      movingLineArray[3][8] = copyMovingLineArray[2][8];
-    } else {
-      movingLineArray[0][0] = copyMovingLineArray[1][0];
-      movingLineArray[0][1] = copyMovingLineArray[1][3];
-      movingLineArray[0][2] = copyMovingLineArray[1][6];
-  
-      movingLineArray[1][0] = copyMovingLineArray[2][6];
-      movingLineArray[1][3] = copyMovingLineArray[2][7];
-      movingLineArray[1][6] = copyMovingLineArray[2][8];
-  
-      movingLineArray[2][6] = copyMovingLineArray[3][2];
-      movingLineArray[2][7] = copyMovingLineArray[3][5];
-      movingLineArray[2][8] = copyMovingLineArray[3][8];
-  
-      movingLineArray[3][2] = copyMovingLineArray[0][0];
-      movingLineArray[3][5] = copyMovingLineArray[0][1];
-      movingLineArray[3][8] = copyMovingLineArray[0][2];
-    }
+  //   for (let i = 0; i < line.length; i++) {
+  //     obj[objKey] = sideCellIndex.splice(0, 3);
+  //     objKey++;
+  //   }
 
-    rotateFaceOfCube(initCubeArray[face], rotatePosition(dir));
-  }
+  //   for (const key in obj) {
+  //     const keyCount = parseInt(key);
+  //     let count = "";
+
+  //     if (dir === CUBE_DIR.LR) {
+  //       count = keyCount === 0 ? keyCount + 3 : keyCount - 1;
+  //     } else {
+  //       count = keyCount === 3 ? 0 : keyCount + 1;
+  //     }
+
+  //     for (let i = 0; i < obj[key].length; i++) {
+  //       movingLineArray[key][obj[key][i]] = copyMovingLineArray[count][obj[count][i]];
+  //     }
+  //   }
+
+  //   rotateFaceOfCube(initCubeArray[face], rotatePosition(dir));
+  // }
 
   function extendFlatArray(nestedArray) {
     var result = [];
