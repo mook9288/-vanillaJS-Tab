@@ -1,0 +1,145 @@
+// style
+.wrapper {
+  width: 400px;
+  margin: 0 auto;
+
+  input[type="text"] {
+    box-sizing: border-box;
+    width: 100%;
+    height: 28px;
+    padding: 0 4px;
+    line-height: 28px;
+    vertical-align: top;
+    border: 1px solid #333333;
+    outline: 0;
+  }
+
+  button {
+    display: inline-block;
+    min-height: 28px;
+    padding: 0 10px;
+    vertical-align: top;
+    color: #ffffff;
+    white-space: nowrap;
+    background-color: #2196f3;
+    border: 0;
+    border-radius: 0;
+    outline: none;
+    cursor: pointer;
+
+    &.btn-edit,
+    &.btn-cancle {
+      background-color: #666666;
+    }
+
+    &.btn-cancle {
+      margin-left: 4px;
+    }
+
+    &.btn-delete {
+      background-color: #f44336;
+    }
+
+    &.btn-modify,
+    &.btn-comp {
+      background-color: #00b37b;
+    }
+  }
+}
+
+.registration {
+  legend {
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .write-box {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+  }
+  input[type="text"].opt-input {
+    flex: 1 1 auto;
+    border-color: #2196f3;
+  }
+  button {
+    width: 50px;
+  }
+}
+
+.btn-set {
+  position: relative;
+  margin: 20px 0;
+
+  &::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  .left {
+    float: left;
+  }
+  .right {
+    float: right;
+  }
+
+  .hide {
+    display: none;
+  }
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.todo-lst {
+  li {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    padding: 2px 0 2px 12px;
+    line-height: 28px;
+    border-top: 1px solid #dcdcdc;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 14px;
+      left: 4px;
+      width: 4px;
+      height: 4px;
+      background-color: #333333;
+      border-radius: 50rem;
+    }
+
+    &:first-child {
+      border-top: 0;
+    }
+
+    &.completed {
+      color: #888888;
+      text-decoration: line-through;
+    }
+  }
+
+  .txt {
+    flex: 1 1 auto;
+  }
+
+  .btn {
+    width: 50px;
+    text-align: right;
+
+    &.hide {
+      display: none;
+    }
+  }
+
+  .modify .btn {
+    width: 100px;
+  }
+}

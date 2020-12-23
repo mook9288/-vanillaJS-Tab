@@ -1,0 +1,169 @@
+body,
+html {
+  font-size: 12px;
+}
+
+.ui.input {
+  input {
+    width: 100%;
+    height: 20px;
+    padding: 0 2px;
+    vertical-align: top;
+    color: inherit;
+    border-radius: 0;
+    outline: 0;
+  }
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  position: relative;
+  list-style: none;
+}
+
+.ui.button {
+  display: inline-block;
+  min-height: 20px;
+  margin: 0 2px;
+  padding: 0 10px;
+  color: #333333;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: #e5e5e5;
+  border: 0 none;
+  cursor: pointer;
+
+  &.icon {
+    padding: 0;
+  }
+}
+
+.ui.segment {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 800px;
+  transform: translate(-50%, -50%);
+}
+
+.ui.header {
+  position: relative;
+  &::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  .content {
+    float: left;
+  }
+
+  .sub.header {
+    float: right;
+  }
+}
+
+.page-list {
+  width: 100%;
+  height: 350px;
+  overflow: auto;
+  border: 1px solid #dcdcdc;
+}
+
+.tree-wrapper {
+  width: 100%;
+  height: 350px;
+  overflow: auto;
+  border: 1px solid #dcdcdc;
+
+  .rct-node-leaf {
+    .tree-collapse .tree-collapse-btn {
+      display: none;
+    }
+  }
+
+  .tree-node-collapsed {
+    .tree-text + ul {
+      display: none;
+    }
+  }
+
+  .tree-text {
+    display: block;
+    min-height: 20px;
+    padding: 4px 4px;
+    white-space: nowrap;
+
+    .tree-collapse,
+    .tree-bare-label {
+      display: inline-block;
+      line-height: 20px;
+      vertical-align: top;
+    }
+
+    + ul {
+      margin-left: 16px;
+    }
+  }
+
+  .tree-collapse {
+    width: 16px;
+    height: 20px;
+    margin: 0 4px 0 0;
+    padding: 0;
+
+    .tree-collapse-btn {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      vertical-align: top;
+      color: #aaaaaa;
+      background-color: transparent;
+    }
+  }
+
+  .tree-bare-label {
+    &.tree-node-selected span {
+      color: #0263c5;
+    }
+
+    .folder {
+      color: #ffc107;
+    }
+
+    div,
+    span {
+      display: inline-block;
+      line-height: 20px;
+    }
+
+    .button {
+      margin-top: 0;
+      margin-bottom: 0;
+      border-radius: 3px;
+    }
+  }
+}
+
+.page-list {
+  .item {
+    width: 100%;
+    padding: 3px 28px 3px 4px;
+    padding-right: 28px;
+
+    .closed {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 24px;
+      height: 24px;
+      margin: 0;
+      padding: 0;
+      background-color: transparent;
+    }
+  }
+}

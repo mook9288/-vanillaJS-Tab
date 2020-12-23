@@ -1,0 +1,157 @@
+.wrapper {
+  width: 400px;
+  margin: 0 auto;
+}
+
+.wrapper input[type="text"] {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 100%;
+  height: 28px;
+  padding: 0 4px;
+  line-height: 28px;
+  vertical-align: top;
+  border: 1px solid #333333;
+  outline: 0;
+}
+
+.wrapper button {
+  display: inline-block;
+  min-height: 28px;
+  padding: 0 10px;
+  vertical-align: top;
+  color: #ffffff;
+  white-space: nowrap;
+  background-color: #2196f3;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  cursor: pointer;
+}
+
+.wrapper button.btn-edit, .wrapper button.btn-cancle {
+  background-color: #666666;
+}
+
+.wrapper button.btn-cancle {
+  margin-left: 4px;
+}
+
+.wrapper button.btn-delete {
+  background-color: #f44336;
+}
+
+.wrapper button.btn-modify, .wrapper button.btn-comp {
+  background-color: #00b37b;
+}
+
+.registration legend {
+  font-weight: 700;
+  text-align: center;
+}
+
+.registration .write-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin-top: 10px;
+}
+
+.registration input[type="text"].opt-input {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  border-color: #2196f3;
+}
+
+.registration button {
+  width: 50px;
+}
+
+.btn-set {
+  position: relative;
+  margin: 20px 0;
+}
+
+.btn-set::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.btn-set .left {
+  float: left;
+}
+
+.btn-set .right {
+  float: right;
+}
+
+.btn-set .hide {
+  display: none;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.todo-lst li {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  padding: 2px 0 2px 12px;
+  line-height: 28px;
+  border-top: 1px solid #dcdcdc;
+}
+
+.todo-lst li::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 4px;
+  width: 4px;
+  height: 4px;
+  background-color: #333333;
+  border-radius: 50rem;
+}
+
+.todo-lst li:first-child {
+  border-top: 0;
+}
+
+.todo-lst li.completed {
+  color: #888888;
+  text-decoration: line-through;
+}
+
+.todo-lst .txt {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+}
+
+.todo-lst .btn {
+  width: 50px;
+  text-align: right;
+}
+
+.todo-lst .btn.hide {
+  display: none;
+}
+
+.todo-lst .modify .btn {
+  width: 100px;
+}
+/*# sourceMappingURL=todoList.css.map */

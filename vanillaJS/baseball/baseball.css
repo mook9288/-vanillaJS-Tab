@@ -1,0 +1,61 @@
+* { margin:0; padding:0; box-sizing: border-box;}
+
+h1 {
+  font-size: 24px;
+  text-align: center;
+}
+
+.divide::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.divide > div {
+  float: left;
+  padding: 20px;
+}
+
+button {
+  padding: 4px 8px;
+}
+
+.game-rules dt {
+  list-style: none;
+  font-weight: bold;
+}
+
+.game-rules dd {
+  font-size: 13px;
+}
+
+.game-start-button {
+  margin: 10px 0;
+}
+
+.game-start-button button {
+  width: 120px;
+}
+
+.enter-number .input-number {
+  padding: 4px 8px;
+  width: 120px;
+  ime-mode: disabled;
+}
+
+.score table {
+  table-layout: fixed;
+  width: 300px;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.score th {
+  background-color: #e5e5e5;
+  border: 1px solid #333;
+}
+
+.score td {
+  border: 1px solid #333;
+  text-align: center;
+}

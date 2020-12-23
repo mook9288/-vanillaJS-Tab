@@ -1,0 +1,99 @@
+* { margin:0; padding:0; box-sizing: border-box;}
+body {
+  background: #3598DC;
+}
+
+.carousel {
+  position: relative;
+  margin: 0px auto;
+  width: 700px;
+  padding: 50px 70px 70px;
+  overflow: hidden;
+}
+
+.carousel-list {
+  position: relative;
+  display: block;
+}
+
+.carousel-list img {
+  display: block;
+  width: 100%;
+}
+
+.carousel-arr button {
+  position: absolute;
+  top: 50%;
+  margin-top: -20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50rem;
+  background: none;
+  background-color: rgba(225,225,225,.5);
+  font-size: 0;
+  line-height: 1000px;
+  overflow: hidden;
+  cursor:pointer;
+  border:0px;
+  outline: none;
+}
+
+.carousel-arr .arr-prev {
+  left: 10px;
+}
+
+.carousel-arr .arr-next {
+  right: 10px;
+}
+
+.carousel-arr button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-top: 5px solid #3598DC;
+  border-left: 5px solid #3598DC;
+  border-radius: 5px;
+}
+
+.carousel-arr .arr-prev::before {
+  transform: translate(-30%, -50%) rotate(-45deg);
+}
+
+.carousel-arr .arr-next::before {
+  transform: translate(-70%, -50%) rotate(135deg);
+}
+
+.carousel-arr button:hover,
+.carousel-arr button:focus {
+  background-color: rgba(225,225,225,1);
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.carousel-dots button {
+  display: block;
+  float: left;
+  width: 10px;
+  height: 10px;
+  background: none;
+  background-color: #2973A5;
+  font-size: 0;
+  line-height: 100px;
+  overflow: hidden;
+  cursor:pointer;
+  border-radius: 50rem;
+  border:0px;
+  margin: 0 20px;
+}
+
+.carousel-dots .active {
+  background-color: #111;
+}
