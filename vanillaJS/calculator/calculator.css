@@ -1,0 +1,168 @@
+@charset "UTF-8";
+* {
+  -webkit-overflow-scrolling: touch;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Noto', dotum, '돋움', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  color: #444;
+}
+
+h1 {
+  margin: 20px auto 10px;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.calculator {
+  margin: 0 auto;
+  width: 300px;
+  background-color: #333;
+  border-radius: 5px;
+}
+
+.calculator__head {
+  width: 100%;
+  height: 50px;
+}
+
+.calculator__body {
+  padding: 5px;
+  width: 100%;
+  height: 300px;
+}
+
+.cal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+}
+
+.cal__reualt {
+  padding: 5px 10px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 0;
+  font-size: 20px;
+  line-height: 50px;
+  color: #fff;
+  text-align: right;
+}
+
+.cal__btn {
+  position: relative;
+  display: inline-block;
+  margin: 5px;
+  width: calc(25% - 10px);
+  border: 0;
+  border-radius: 3px;
+  outline: none;
+  font-size: 24px;
+  cursor: pointer;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+
+.cal__btn:active {
+  -webkit-transform: translate3d(2px, 2px, 0);
+          transform: translate3d(2px, 2px, 0);
+}
+
+.cal__btn:active::before {
+  -webkit-transform: translate3d(-2px, -2px, -1em);
+          transform: translate3d(-2px, -2px, -1em);
+}
+
+.cal__btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+  -webkit-transform: translate3d(2px, 2px, -1em);
+          transform: translate3d(2px, 2px, -1em);
+}
+
+.cal__btn.number, .cal__btn.dot {
+  background-color: #fff;
+  color: #333;
+}
+
+.cal__btn.number::before, .cal__btn.dot::before {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.cal__btn.cancle {
+  background-color: #f29829;
+  color: #fff;
+}
+
+.cal__btn.cancle::before {
+  background-color: rgba(242, 152, 41, 0.5);
+}
+
+.cal__btn.reset {
+  background-color: #f24c3d;
+  color: #fff;
+}
+
+.cal__btn.reset::before {
+  background-color: rgba(242, 76, 61, 0.5);
+}
+
+.cal__btn.operation, .cal__btn.grouping {
+  background-color: #888;
+  color: #fff;
+}
+
+.cal__btn.operation::before, .cal__btn.grouping::before {
+  background-color: rgba(136, 136, 136, 0.5);
+}
+
+.cal__btn.equals {
+  background-color: #03a688;
+  color: #fff;
+}
+
+.cal__btn.equals::before {
+  background-color: rgba(3, 166, 136, 0.5);
+}
+
+.cal__btn:disabled,
+.cal__btn [disabled] {
+  background-color: #444;
+  color: #333;
+  cursor: default;
+}
+
+.cal__btn:disabled::before,
+.cal__btn [disabled]::before {
+  background-color: rgba(68, 68, 68, 0.5);
+}
