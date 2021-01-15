@@ -24,3 +24,11 @@ const btnCancle = document.querySelector(".cancle");
     }
   });
 });
+
+btnReset.addEventListener("click", () => {
+  result.value = '';
+});
+
+btnCancle.addEventListener("click", () => {
+  result.value = result.value.slice(0, -1);
+});
