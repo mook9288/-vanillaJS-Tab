@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../public/js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="../public/css/reset.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div id="tbl-calendar" class="tbl-calendar">
+        <div class="tbl-calendar__header">
+          <button type="button" class="tbl-calendar__prev">
+            <span class="blind">이전</span>
+          </button>
+          <span class="tbl-calendar__title"></span>
+          <button type="button" class="tbl-calendar__next">
+            <span class="blind">다음</span>
+          </button>
+          <ul class="tbl-calendar__icon">
+            <li>
+              <i class="ico ico__today"></i>
+              오늘
+            </li>
+            <li>
+              <i class="ico ico__select"></i>
+              선택일
+            </li>
+          </ul>
+        </div>
+        <table>
+          <thead>
+            <th class="holiday">Su</th>
+            <th>Mo</th>
+            <th>Tu</th>
+            <th>We</th>
+            <th>Th</th>
+            <th>Fr</th>
+            <th>Sa</th>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      var response = [
+        {
+          id: 13,
+          labCalendarDate: { year: 2022, month: 1, day: 13 },
+          closeDayType: 'CLOSED_DAY',
+          labLocation: 'SEOUL',
+          createdAt: {
+            date: { year: 2022, month: 1, day: 12 },
+            time: { hour: 17, minute: 53, second: 56, nano: 904573000 },
+          },
+        },
+        {
+          id: 14,
+          labCalendarDate: { year: 2022, month: 1, day: 14 },
+          holidayType: 'SUBSTITUTE_HOLIDAY',
+          labLocation: 'SEOUL',
+          createdAt: {
+            date: { year: 2022, month: 1, day: 12 },
+            time: { hour: 17, minute: 53, second: 56, nano: 904573000 },
+          },
+        },
+        {
+          id: 31,
+          labCalendarDate: { year: 2022, month: 1, day: 31 },
+          holidayType: 'ETC',
+          etcDayType: '설날 연휴',
+          labLocation: 'SEOUL',
+          createdAt: {
+            date: { year: 2022, month: 1, day: 12 },
+            time: { hour: 17, minute: 53, second: 58, nano: 53394000 },
+          },
+          updatedAt: {
+            date: { year: 2022, month: 1, day: 13 },
+            time: { hour: 17, minute: 27, second: 53, nano: 615000000 },
+          },
+        },
+        {
+          id: 32,
+          labCalendarDate: { year: 2022, month: 2, day: 1 },
+          holidayType: 'ETC',
+          etcDayType: '설날',
+          labLocation: 'SEOUL',
+          createdAt: {
+            date: { year: 2022, month: 1, day: 12 },
+            time: { hour: 17, minute: 53, second: 58, nano: 53394000 },
+          },
+          updatedAt: {
+            date: { year: 2022, month: 1, day: 13 },
+            time: { hour: 17, minute: 27, second: 53, nano: 615000000 },
+          },
+        },
+        {
+          id: 33,
+          labCalendarDate: { year: 2022, month: 2, day: 2 },
+          holidayType: 'ETC',
+          etcDayType: '설날 연휴',
+          labLocation: 'SEOUL',
+          createdAt: {
+            date: { year: 2022, month: 1, day: 12 },
+            time: { hour: 17, minute: 53, second: 58, nano: 53394000 },
+          },
+          updatedAt: {
+            date: { year: 2022, month: 1, day: 13 },
+            time: { hour: 17, minute: 27, second: 53, nano: 615000000 },
+          },
+        },
+        {
+          id: 45,
+          labCalendarDate: { year: 2022, month: 2, day: 14 },
+          holidayType: 'SUBSTITUTE_HOLIDAY',
+          labLocation: 'SEOUL',
+          createdAt: {
+            date: { year: 2022, month: 1, day: 12 },
+            time: { hour: 17, minute: 53, second: 58, nano: 53394000 },
+          },
+          updatedAt: {
+            date: { year: 2022, month: 1, day: 13 },
+            time: { hour: 17, minute: 27, second: 53, nano: 615000000 },
+          },
+        },
+        {
+          id: 48,
+          labCalendarDate: { year: 2022, month: 2, day: 17 },
+          closeDayType: 'TEMPORARY_HOLIDAY',
+          labLocation: 'SEOUL',
+          createdAt: {
+            date: { year: 2022, month: 1, day: 12 },
+            time: { hour: 17, minute: 53, second: 58, nano: 53394000 },
+          },
+          updatedAt: {
+            date: { year: 2022, month: 1, day: 13 },
+            time: { hour: 17, minute: 27, second: 53, nano: 615000000 },
+          },
+        },
+        {
+          id: 49,
+          labCalendarDate: { year: 2022, month: 2, day: 18 },
+          holidayType: 'ETC',
+          labLocation: 'SEOUL',
+          createdAt: {
+            date: { year: 2022, month: 1, day: 12 },
+            time: { hour: 17, minute: 53, second: 58, nano: 53394000 },
+          },
+          updatedAt: {
+            date: { year: 2022, month: 1, day: 13 },
+            time: { hour: 17, minute: 27, second: 53, nano: 615000000 },
+          },
+        },
+        {
+          id: 51,
+          labCalendarDate: { year: 2022, month: 2, day: 20 },
+          holidayType: 'ETC',
+          labLocation: 'SEOUL',
+          createdAt: {
+            date: { year: 2022, month: 1, day: 12 },
+            time: { hour: 17, minute: 53, second: 58, nano: 53394000 },
+          },
+          updatedAt: {
+            date: { year: 2022, month: 1, day: 13 },
+            time: { hour: 17, minute: 27, second: 53, nano: 615000000 },
+          },
+        },
+        {
+          id: 125,
+          labCalendarDate: { year: 2022, month: 5, day: 5 },
+          holidayType: 'HOLIDAY',
+          labLocation: 'SEOUL',
+          createdAt: {
+            date: { year: 2022, month: 1, day: 12 },
+            time: { hour: 17, minute: 54, second: 0, nano: 304589000 },
+          },
+          updatedAt: {
+            date: { year: 2022, month: 1, day: 13 },
+            time: { hour: 17, minute: 26, second: 46, nano: 717000000 },
+          },
+        },
+        {
+          id: 2873,
+          labCalendarDate: { year: 2023, month: 1, day: 14 },
+          holidayType: 'HOLIDAY',
+          labLocation: 'SEOUL',
+          createdAt: {
+            date: { year: 2022, month: 1, day: 13 },
+            time: { hour: 17, minute: 44, second: 13, nano: 469000000 },
+          },
+        },
+        {
+          id: 2874,
+          labCalendarDate: { year: 2023, month: 1, day: 15 },
+          holidayType: 'HOLIDAY',
+          labLocation: 'SEOUL',
+          createdAt: {
+            date: { year: 2022, month: 1, day: 13 },
+            time: { hour: 17, minute: 44, second: 13, nano: 474000000 },
+          },
+        },
+        {
+          id: 2904,
+          labCalendarDate: { year: 2023, month: 2, day: 14 },
+          holidayType: 'SUBSTITUTE_HOLIDAY',
+          labLocation: 'SEOUL',
+          createdAt: {
+            date: { year: 2022, month: 1, day: 13 },
+            time: { hour: 17, minute: 44, second: 13, nano: 655000000 },
+          },
+        },
+        {
+          id: 2984,
+          labCalendarDate: { year: 2023, month: 5, day: 5 },
+          holidayType: 'HOLIDAY',
+          labLocation: 'SEOUL',
+          createdAt: {
+            date: { year: 2022, month: 1, day: 13 },
+            time: { hour: 17, minute: 44, second: 14, nano: 127000000 },
+          },
+        },
+      ];
+
+      $(function () {
+        var schedule = {};
+
+        for (let i = 0; i < response.length; i++) {
+          var item = response[i];
+          var dateObj = item.labCalendarDate;
+          // yyyymmdd
+          var formatDate =
+            dateObj.year +
+            calendarUtil.decimalLeadingZero(dateObj.month) +
+            calendarUtil.decimalLeadingZero(dateObj.day);
+
+          var holidayType = {
+            HOLIDAY: '공휴일',
+            SUBSTITUTE_HOLIDAY: '대체공휴일',
+            ETC: item.etcDayType || '기타',
+          }[item.holidayType];
+
+          var closeDayType = {
+            CLOSED_DAY: '휴관일',
+            TEMPORARY_HOLIDAY: '임시휴관일',
+          }[item.closeDayType];
+          var dateState = closeDayType || holidayType;
+          var parentClass = holidayType
+            ? 'holiday'
+            : closeDayType
+            ? 'close-day'
+            : '';
+
+          schedule['date_' + formatDate] = {
+            id: item.id,
+            html: dateState,
+            parentClass,
+          };
+        }
+
+        var minDate = new Date('2022-01-11');
+        var maxDate = new Date('2022-05-11');
+        var datePeriod = { minDate, maxDate };
+        var calendar = lgCalendar(
+          $('.tbl-calendar'),
+          new Date(),
+          schedule,
+          datePeriod
+        );
+
+        $('.tbl-calendar__prev').click(function () {
+          calendar.prev();
+        });
+        $('.tbl-calendar__next').click(function () {
+          calendar.next();
+        });
+
+        $(document).on('click', 'td.date', function () {
+          var date = $(this).data('date');
+
+          $('td.date').removeClass('active');
+
+          if ($(this).data('other-month') === 'prev') {
+            calendar.prev();
+          }
+          if ($(this).data('other-month') === 'next') {
+            calendar.next();
+          }
+
+          if ($(this).hasClass('other-month')) {
+            $('.tbl-calendar .date[data-date=' + date + ']').addClass('active');
+          } else {
+            $(this).addClass('active');
+          }
+        });
+      });
+    </script>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

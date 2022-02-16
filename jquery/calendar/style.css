@@ -1,0 +1,221 @@
+.wrapper {
+  padding: 50px;
+}
+
+.blind {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  border: 0;
+  white-space: nowrap;
+
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+}
+
+.tbl-calendar__header {
+  position: relative;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.tbl-calendar__title {
+  display: inline-block;
+  width: 250px;
+  font-size: 3.6rem;
+  font-weight: bold;
+  line-height: 3rem;
+  color: #000;
+  vertical-align: middle;
+}
+.tbl-calendar__prev,
+.tbl-calendar__next {
+  position: relative;
+  display: inline-block;
+  width: 3rem;
+  height: 3rem;
+  vertical-align: middle;
+}
+.tbl-calendar__prev:before,
+.tbl-calendar__next:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  transform: translateY(-50%) rotate(45deg);
+}
+.tbl-calendar__prev.is-disabled,
+.tbl-calendar__next.is-disabled {
+  opacity: .5;
+  cursor: default;
+}
+.tbl-calendar__prev:before {
+  left: 50%;
+  margin-left: -5px;
+  border-bottom: 2px solid #333;
+  border-left: 2px solid #333;
+}
+.tbl-calendar__next:before {
+  right: 50%;
+  margin-right: -5px;
+  border-top: 2px solid #333;
+  border-right: 2px solid #333;
+}
+.tbl-calendar__icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 14px;
+}
+.tbl-calendar__icon li {
+  display: inline-block;
+  margin-right: 30px;
+  line-height: 30px;
+}
+.tbl-calendar__icon .ico {
+  display: inline-block;
+  margin-right: 4px;
+  width: 18px;
+  height: 18px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 5rem;
+  font-style: normal;
+  vertical-align: middle;
+}
+.tbl-calendar__icon .ico__today {
+  background-color: #d5295c;
+  border-color: #d5295c;
+}
+.tbl-calendar__icon .ico__select {
+  background-color: #fff;
+  border-color: #d5295c;
+}
+.tbl-calendar table {
+  width: 100%;
+  font-size: 16px;
+  text-align: center;
+  table-layout: fixed;
+}
+.tbl-calendar table th {
+  font-weight: 600;
+}
+.tbl-calendar table th,
+.tbl-calendar table td {
+  height: 60px;
+  vertical-align: middle;
+}
+.tbl-calendar table th .content,
+.tbl-calendar table td .content {
+  margin-top: .5rem;
+  font-size: 1.2rem;
+}
+.tbl-calendar table td {
+  padding: 6px 7px;
+  border: 1px solid #dfdfdf;
+}
+.tbl-calendar table td:first-child {
+  border-left: 0;
+}
+.tbl-calendar table td:last-child {
+  border-right: 0;
+}
+
+.tbl-calendar .date__default {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.tbl-calendar .date__num {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 30px;
+  color: #000;
+  text-align: center;
+}
+.tbl-calendar .date__num::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  display: none;
+  width: 28px;
+  height: 28px;
+  background-color: #fff;
+  border: 1px solid #d5295c;
+  border-radius: 5rem;
+}
+.tbl-calendar .date__text {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  font-size: 13px;
+  text-align: right;
+}
+.tbl-calendar .date.holiday .date__num,
+.tbl-calendar .date.holiday .date__text {
+  color: #d5295c;
+}
+.tbl-calendar .date.close-day .date__num,
+.tbl-calendar .date.close-day .date__text {
+  color: #d5295c;
+}
+.tbl-calendar .date.today {
+  color: #d5295c;
+}
+.tbl-calendar .date.today .date__num {
+  color: #fff;
+}
+.tbl-calendar .date.today .date__num::before {
+  display: block;
+  background-color: #d5295c;
+}
+.tbl-calendar .date.active {
+  color: #d5295c;
+}
+.tbl-calendar .date.active .date__num::before {
+  display: block;
+}
+.tbl-calendar .date.other-month .date__num,
+.tbl-calendar .date.other-month .date__text {
+  opacity: .5;
+}
+.tbl-calendar .date.other-month .date__num,
+.tbl-calendar .date.other-month .date__text {
+  color: rgba(0, 0, 0, .5);
+}
+.tbl-calendar .date.other-month.holiday .date__num,
+.tbl-calendar .date.other-month.holiday .date__text {
+  color: rgba(213, 41, 92, .5);
+}
+.tbl-calendar .date.disabled {
+  background-color: #f6f6f6;
+  color: #999;
+}
+.tbl-calendar .date.disabled .date__default {
+  cursor: default;
+}
+.tbl-calendar .date.disabled .date__num,
+.tbl-calendar .date.disabled .date__text {
+  color: #999;
+}
+.tbl-calendar .date.disabled.holiday .date__num,
+.tbl-calendar .date.disabled.holiday .date__text {
+  color: rgba(213, 41, 92, .6);
+}
+.tbl-calendar .date.disabled.other-month .date__num,
+.tbl-calendar .date.disabled.other-month .date__text {
+  color: rgba(0, 0, 0, .2);
+}
